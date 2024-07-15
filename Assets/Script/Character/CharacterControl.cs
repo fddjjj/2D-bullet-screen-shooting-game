@@ -11,6 +11,8 @@ public class CharacterControl : MonoBehaviour
     public Rigidbody2D rb;
     public PlayerInputControl inputControl;
     public Animator animator;
+    public GameObject playerImage;
+    public GameObject flyPoint;
     [Header("基本参数")]
     public Vector2 moveDirection;//移动方向
     public float moveSpeed;//速度上限
@@ -21,10 +23,14 @@ public class CharacterControl : MonoBehaviour
     public LayerMask groundLayer;//被检测的地面layer
     public float playerGravityScale;//角色重力
     public float playerOriginalGravityScale;
-    public float playerSlowDownGravityScale;
+    public float playerFlyGravityScale;
     public float playerSlowDownSpeed;//限制角色缓降速度
+    public float slideSpeed;//角色滑行速度
+    public bool isFlyying;//是否在飞行
+    public float flySpeed;//飞行速度
     [Header("角色状态")]
     public bool isOnGround;//检测角色是否处于地面上
+    public bool isSlide;
 
     private void Awake()
     {
@@ -35,14 +41,18 @@ public class CharacterControl : MonoBehaviour
 
 
         //动作绑定
+        //跳跃和缓降
         inputControl.Player.Jump.started += Jump;
         inputControl.Player.Jump.performed += SlowDown;
         inputControl.Player.Jump.canceled +=  CancelSlowDown;
+        //冲刺和空中飞行
+        inputControl.Player.Slide.started += Slide;
+        inputControl.Player.Slide.performed += Fly;
+        inputControl.Player.Slide.canceled += EndFly;
 
         //初始值赋予
         playerOriginalGravityScale = rb.gravityScale;
     }
-
 
 
     private void Update()
@@ -58,7 +68,7 @@ public class CharacterControl : MonoBehaviour
 
 
         //debug用
-        playerGravityScale = rb.gravityScale;
+        //playerGravityScale = rb.gravityScale;
     }
 
     private void FixedUpdate()
@@ -78,6 +88,8 @@ public class CharacterControl : MonoBehaviour
     #region 人物移动控制
     public void move()
     {
+        if (isSlide)
+            return;
         if (moveDirection.x == 0) 
         { 
             rb.velocity = new Vector2(0,rb.velocity.y);
@@ -99,15 +111,15 @@ public class CharacterControl : MonoBehaviour
     }
     private void Jump(InputAction.CallbackContext context)
     {
-       // UnityEngine.Debug.Log("Jump");
+        // UnityEngine.Debug.Log("Jump");
+        if (isSlide)
+            return;
         if (!isOnGround)
             return;
         rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
 
     }
-
-
     private void SlowDown(InputAction.CallbackContext context)
     {
       //  UnityEngine.Debug.Log("SLowDown");
@@ -137,6 +149,59 @@ public class CharacterControl : MonoBehaviour
             yield return null;
         }
     }
+
+    private void Slide(InputAction.CallbackContext context)
+    {
+        if (!isOnGround)
+            return;
+        Vector3 slideDir = transform.localScale;
+        animator.SetTrigger("Slide");
+        //TODO:添加无敌
+        isSlide = true;
+        StartCoroutine("WhileSlide");
+    }
+    IEnumerator WhileSlide()
+    {
+        while (isSlide)
+        {
+            rb.velocity = new Vector2(slideSpeed * transform.localScale.x, rb.velocity.y);
+            yield return null;
+        }
+        yield break;
+    }
+
+    private void Fly(InputAction.CallbackContext context)
+    {
+        //TODO:添加飞行，取消和子弹的碰撞
+        if (isOnGround)
+            return;
+        isFlyying = true;
+        playerImage.SetActive(false);
+        flyPoint.SetActive(true);
+        rb.gravityScale = playerFlyGravityScale;
+        StartCoroutine("FlyMove");
+    }
+
+    IEnumerator FlyMove()
+    {
+        //TODO:添加体力条消耗
+        while (isFlyying)
+        {
+            rb.velocity = new Vector2(moveDirection.x * flySpeed,moveDirection.y * flySpeed);
+            yield return null;
+        }
+        yield break;
+    }
+    private void EndFly(InputAction.CallbackContext context)
+    {
+        isFlyying = false;
+        StopCoroutine("FlyMove");
+        playerImage.SetActive(true);
+        flyPoint.SetActive(false);
+        rb.gravityScale = playerOriginalGravityScale;
+    }
+
+
     #endregion
     #region 状态同步
     public void AnimatorUpdate()
