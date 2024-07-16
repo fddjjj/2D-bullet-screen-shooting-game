@@ -13,6 +13,12 @@ public class CharacterControl : MonoBehaviour
     public Animator animator;
     public GameObject playerImage;
     public GameObject flyPoint;
+    public Transform shootPoint;
+    public Transform bone_8;
+    public Transform bone_9;
+    public Transform originalPoint;
+    public GameObject shotPoint;
+
     [Header("基本参数")]
     public Vector2 moveDirection;//移动方向
     public float moveSpeed;//速度上限
@@ -26,12 +32,14 @@ public class CharacterControl : MonoBehaviour
     public float playerFlyGravityScale;
     public float playerSlowDownSpeed;//限制角色缓降速度
     public float slideSpeed;//角色滑行速度
-    public bool isFlyying;//是否在飞行
+    public float flyCount;//角色飞行限制次数
+    public float currentFlyCount;
     public float flySpeed;//飞行速度
     [Header("角色状态")]
     public bool isOnGround;//检测角色是否处于地面上
-    public bool isSlide;
-
+    public bool isSlide;//检测角色是否正在滑行
+    public bool isShooting;//是否正在射击
+    public bool isFlyying;//是否在飞行
     private void Awake()
     {
         //组件获取
@@ -50,9 +58,13 @@ public class CharacterControl : MonoBehaviour
         inputControl.Player.Slide.performed += Fly;
         inputControl.Player.Slide.canceled += EndFly;
 
+        //射击
+        inputControl.Player.Shooting.performed += Shoot;
+        inputControl.Player.Shooting.canceled += EndShoot;
         //初始值赋予
         playerOriginalGravityScale = rb.gravityScale;
     }
+
 
 
     private void Update()
@@ -61,14 +73,13 @@ public class CharacterControl : MonoBehaviour
         currentVelocity = rb.velocity;
         AnimatorUpdate();
         PlayerEnvirmentCheck();
-
-
-
-
+        PlayerStateCheck();
+        ArmPointAtShootPoint();
 
 
         //debug用
         //playerGravityScale = rb.gravityScale;
+        
     }
 
     private void FixedUpdate()
@@ -85,6 +96,10 @@ public class CharacterControl : MonoBehaviour
         inputControl.Disable();
     }
 
+    private void LateUpdate()
+    {
+
+    }
     #region 人物移动控制
     public void move()
     {
@@ -105,6 +120,8 @@ public class CharacterControl : MonoBehaviour
             rb.velocity = new Vector2(moveSpeed * moveDirection.x, rb.velocity.y);
         }
         //根据当前速度方向改变人物朝向
+        if (isShooting)
+            return;
         if (rb.velocity.x >= 0) transform.localScale= new Vector3(1, 1, 1);
         else transform.localScale = new Vector3(-1, 1, 1);
 
@@ -175,6 +192,10 @@ public class CharacterControl : MonoBehaviour
         //TODO:添加飞行，取消和子弹的碰撞
         if (isOnGround)
             return;
+        if (currentFlyCount > 0)
+            currentFlyCount--;
+        else
+            return;
         isFlyying = true;
         playerImage.SetActive(false);
         flyPoint.SetActive(true);
@@ -199,6 +220,52 @@ public class CharacterControl : MonoBehaviour
         playerImage.SetActive(true);
         flyPoint.SetActive(false);
         rb.gravityScale = playerOriginalGravityScale;
+    }
+    private void Shoot(InputAction.CallbackContext context)
+    {
+        isShooting = true;
+        if(!isFlyying)
+            shotPoint.SetActive(true);
+        //TODO:调整魔法阵的rotation使其贴合效果
+       // Debug.Log("start shoot");
+    }
+    public void ArmPointAtShootPoint()
+    {
+        if(isFlyying) return;
+        if (isShooting)
+        {
+            //根据射击方向修改人物朝向
+            Vector2 dir =(Vector2)(shootPoint.position - originalPoint.position);
+            if (dir.x >= 0) transform.localScale= new Vector3(1, 1, 1);
+            else transform.localScale = new Vector3(-1, 1, 1);
+
+            Vector2 shotPoint = (Vector2)shootPoint.position;
+            
+            // 计算指向交点的角度
+            Vector2 direction = shotPoint - (Vector2)bone_8.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            // 设置手臂的旋转
+            //backArmBone.rotation = Quaternion.Euler(0, 0, angle);
+            if (transform.localScale.x < 0)
+            {
+                bone_8.rotation = Quaternion.Euler(0, 0, angle + 180);
+                bone_9.rotation = Quaternion.Euler(0, 0, angle + 180);
+            }else
+            {
+                bone_8.rotation = Quaternion.Euler(0, 0, angle);
+                bone_9.rotation = Quaternion.Euler(0, 0, angle);
+            }
+            
+            //Debug.Log("set Finished");
+        }
+    }
+    private void EndShoot(InputAction.CallbackContext context)
+    {
+        isShooting = false;
+        shotPoint.SetActive(false);
+        //Debug.Log("stop shoot");
+        //animator.Update(0);
     }
 
 
@@ -225,6 +292,14 @@ public class CharacterControl : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, playerOnGroundRaduis);
     }
+    public void PlayerStateCheck()
+    {
+        //TODO:添加UI判断
+        if (isOnGround)
+            currentFlyCount = flyCount;
+    }
+
+
     #endregion
 
 }
