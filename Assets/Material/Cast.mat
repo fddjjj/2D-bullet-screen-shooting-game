@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Star
+  m_Name: Cast
   m_Shader: {fileID: -6465566751694194690, guid: 63c0c7ebacaed2742844e74f187ac303, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -87,7 +87,7 @@ Material:
     m_Floats:
     - Boolean_d2d6029d4e634b02b8087e0393977fa5: 0
     - Vector1_89f395a0c36d47bd98b21eed9cfa7ac1: 1
-    - Vector1_c368d9634b09460f8d7694f19b4df4bd: 19.08
+    - Vector1_c368d9634b09460f8d7694f19b4df4bd: 600
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0

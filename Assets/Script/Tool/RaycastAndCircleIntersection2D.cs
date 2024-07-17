@@ -7,19 +7,6 @@ public class RaycastAndCircleIntersection2D : MonoBehaviour
     public Transform point; // 你的起始点
     public float circleRadius;// 圆的半径
     public Transform shootPoint;
-    public Transform backArmBone;
-    public Animator playerAnimator;
-
-    private void Awake()
-    {
-        playerAnimator = GetComponent<Animator>();
-        backArmBone = playerAnimator.transform.Find("Skeletal/bone_1/bone_2/bone_3/bone_4/bone_8");
-        if (backArmBone == null)
-        {
-            Debug.LogError("Bone not found: " + "bone_8");
-            return;
-        }
-    }
 
     void Update()
     {
@@ -36,7 +23,7 @@ public class RaycastAndCircleIntersection2D : MonoBehaviour
         Vector2 rayDirection = (worldMousePosition - point.position).normalized;
 
         // 发射射线
-        RaycastHit2D hit = Physics2D.Raycast(point.position, rayDirection);
+        //RaycastHit2D hit = Physics2D.Raycast(point.position, rayDirection);
 
         //if (hit.collider != null)
         //{

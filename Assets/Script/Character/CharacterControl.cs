@@ -40,6 +40,7 @@ public class CharacterControl : MonoBehaviour
     public bool isSlide;//检测角色是否正在滑行
     public bool isShooting;//是否正在射击
     public bool isFlyying;//是否在飞行
+    public AttackTypes currentAttackType;//当前射击方式
     private void Awake()
     {
         //组件获取
@@ -169,6 +170,7 @@ public class CharacterControl : MonoBehaviour
 
     private void Slide(InputAction.CallbackContext context)
     {
+        //TODO:添加滚动途中暂停射击
         if (!isOnGround)
             return;
         Vector3 slideDir = transform.localScale;
@@ -189,7 +191,8 @@ public class CharacterControl : MonoBehaviour
 
     private void Fly(InputAction.CallbackContext context)
     {
-        //TODO:添加飞行，取消和子弹的碰撞
+        //TODO:添加飞行过程中，取消和子弹的碰撞
+        //FIXME:在射击过程中飞行时，暂停射击
         if (isOnGround)
             return;
         if (currentFlyCount > 0)
