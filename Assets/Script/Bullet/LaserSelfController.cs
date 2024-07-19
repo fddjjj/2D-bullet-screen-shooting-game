@@ -40,9 +40,6 @@ public class LaserSelfController : MonoBehaviour
                 //Debug.Log("find");
             }
         }
-
-           
-               
         float distance = GetNearestHitDistance(colliders);
         scale = new Vector3(1, distance / length, 1);
         // 压缩激光的y轴长度

@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyManager : SingleTon<EnemyManager>
 {
     [SerializeField]
-    List<EnemyState> enemyStates = new List<EnemyState>();
+    public List<EnemyState> enemyStates = new List<EnemyState>();
 
 
     public void AddEnemyState(EnemyState enemyState)
