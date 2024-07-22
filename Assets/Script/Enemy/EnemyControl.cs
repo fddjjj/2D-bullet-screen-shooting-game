@@ -16,7 +16,7 @@ public class EnemyControl : MonoBehaviour
         //EnemyState State = new EnemyState();
         //selfState = State;
 
-        Debug.Log(selfName);
+        //Debug.Log(selfName);
     }
 
 
@@ -32,7 +32,7 @@ public class EnemyControl : MonoBehaviour
     public void OnDisable()
     {
         //Debug.Log(EnemyManager.Instance.enemyStates.Count);
-        EnemyManager.Instance.removeEnemyState(selfState);
+        //EnemyManager.Instance.removeEnemyState(selfState);
         //Debug.Log(EnemyManager.Instance.enemyStates.Count);
     }
 }

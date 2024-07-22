@@ -11,7 +11,7 @@ public class EnemyStageControl : MonoBehaviour
     public bool needRefresh = false;
     private void Awake()
     {
-        currentStage = Stage.FirstStage;
+        //currentStage = Stage.FirstStage;
         firstStageSkill = GetComponent<FirstStageSkill>();
     }
     void Update()

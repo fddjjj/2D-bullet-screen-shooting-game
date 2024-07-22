@@ -13,6 +13,8 @@ public class LaserPointController : MonoBehaviour
     public float moveDuration = 2f; // 到达目标位置的时间
     public float scaleMultiplier = 2f; // 到达目标位置后的缩放倍数
     public float laserLength;
+    public bool isFixedAngleLaser; // 是否是固定角度激光
+    public Vector2 dir;
 
     private void Start()
     {
@@ -34,39 +36,58 @@ public class LaserPointController : MonoBehaviour
 
         transform.position = targetPosition;
         transform.localScale *= scaleMultiplier;
-
+        dir = (PlayerStateManager.Instance.playerTransform.position - transform.position).normalized;
         // 调整红色激光
         AdjustLaser(redLaser);
 
         // 启用红色激光 1 秒，然后启用蓝色激光
         redLaser.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
-
+        redLaser.gameObject.SetActive(false);
         AdjustLaser(blueLaser);
         blueLaser.gameObject.SetActive(true);
 
         // 5 秒后禁用蓝色激光
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         StartCoroutine(FadeOutAndDestroy());
     }
 
     private void AdjustLaser(Transform laser)
     {
-        // 根据偏转角度旋转激光
-        laser.rotation = Quaternion.Euler(0, 0,  - deflectionAngle);
-
-        // 根据地面调整激光长度
-        Vector2 direction = new Vector2(Mathf.Sin(Mathf.Deg2Rad * deflectionAngle), Mathf.Cos(Mathf.Deg2Rad * deflectionAngle));
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Ground"));
-        if (hit.collider != null)
+        if (!isFixedAngleLaser)
         {
-            Debug.Log("find Ground");
-            Vector3 scale = laser.localScale;
-            scale.y = hit.distance / laserLength; // 调整激光长度
-            laser.localScale = scale;
+             // 根据偏转角度旋转激光
+            laser.rotation = Quaternion.Euler(0, 0,  - deflectionAngle);
 
-            // 设置碰撞点位置
-            collisionPoint.position = hit.point;
+            // 根据地面调整激光长度
+            Vector2 direction = new Vector2(Mathf.Sin(Mathf.Deg2Rad * deflectionAngle), Mathf.Cos(Mathf.Deg2Rad * deflectionAngle));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Ground"));
+            if (hit.collider != null)
+            {
+                //Debug.Log("find Ground");
+                Vector3 scale = laser.localScale;
+                scale.y = hit.distance / laserLength; // 调整激光长度
+                laser.localScale = scale;
+
+                // 设置碰撞点位置
+                collisionPoint.position = hit.point;
+            }
+        }else
+        {
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            laser.rotation = Quaternion.Euler(0, 0, angle - 90);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, Mathf.Infinity, LayerMask.GetMask("Ground"));
+            Debug.DrawRay(transform.position, dir * 1000, Color.red,100f);
+            if (hit.collider != null)
+            {
+                Debug.Log("find Ground");
+                Vector3 scale = laser.localScale;
+                scale.y = hit.distance / laserLength; // 调整激光长度
+                laser.localScale = scale;
+
+                // 设置碰撞点位置
+                collisionPoint.position = hit.point;
+            }
         }
     }
 
