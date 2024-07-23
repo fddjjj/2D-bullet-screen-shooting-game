@@ -11231,6 +11231,7 @@ GameObject:
   - component: {fileID: 1900306858}
   - component: {fileID: 1900306857}
   - component: {fileID: 1900306860}
+  - component: {fileID: 1900306861}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Enemy
@@ -11299,7 +11300,7 @@ Transform:
   m_GameObject: {fileID: 1900306852}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.16, y: 5.25, z: 0}
+  m_LocalPosition: {x: 11.3, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11335,7 +11336,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -11400,7 +11401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce83fbe1f2efa046833c05eff9e720f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStage: 1
+  currentStage: 2
   firstStageSkill: {fileID: 0}
   needRefresh: 0
 --- !u!50 &1900306859
@@ -11460,6 +11461,44 @@ MonoBehaviour:
   flyDuration: 0
   radius: 5
   isStart: 0
+--- !u!114 &1900306861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900306852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48b4949f1c2db2478a76f0a7a03f550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfEnemyStageControl: {fileID: 0}
+  selfEnemyControl: {fileID: 0}
+  rb: {fileID: 0}
+  position1: {x: -0.61, y: 6.71, z: 0}
+  movePosition1: {x: 20.6, y: 17.7, z: 0}
+  movePosition2: {x: -26.2, y: 17.7, z: 0}
+  movePosition3: {x: -48.7, y: 23.6, z: 0}
+  movePosition4: {x: -35.4, y: -6.9, z: 0}
+  movePosition5: {x: 48, y: 30.4, z: 0}
+  movePosition6: {x: 28.4, y: -8.3, z: 0}
+  leftX: -29
+  rightX: 22
+  bottomY: 19
+  topY: 24
+  laserPointPrefab: {fileID: 35818858183578085, guid: b2a1612cd6c24cd42bed5391de3ce423, type: 3}
+  ScattingBulletPrefab: {fileID: 2779512472296037740, guid: dd8b57ff0808ed64d8b48fb69e14e118, type: 3}
+  health: 0
+  stageLastTime: 0
+  redLaserLength: 0
+  fireInterval: 0
+  bulletSpeed: 10
+  flyDuration: 0
+  d: 2
+  baseSpeed: 2
+  isStart: 0
+  isFollow: 0
 --- !u!1 &1939194650
 GameObject:
   m_ObjectHideFlags: 0
