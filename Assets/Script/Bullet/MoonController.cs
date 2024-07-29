@@ -34,7 +34,8 @@ public class MoonController : MonoBehaviour
         {
             isChange = true;
             startShoot = true;
-            rb.velocity = rb.velocity * 0.1f;
+            rb.velocity = rb.velocity * 0.3f;
+
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -42,6 +43,7 @@ public class MoonController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && isChange)
             Destroy(gameObject);
     }
+
     void ShootBullets()
     {
         float angleStep = 360f / bulletCount;
@@ -49,7 +51,7 @@ public class MoonController : MonoBehaviour
         {
             float angle = i * angleStep;
             float angleRad = angle * Mathf.Deg2Rad; // 将角度转换为弧度
-            Vector3 spawnPosition = transform.position + Quaternion.Euler(0f, angle, 0f) * Vector3.forward * radius;
+            Vector3 spawnPosition = transform.position + new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0f) * radius;
             // 实例化子弹
             GameObject bullet = Instantiate(bulletPrefab,spawnPosition, Quaternion.identity);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

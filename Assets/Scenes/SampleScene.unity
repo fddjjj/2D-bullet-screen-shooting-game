@@ -11302,7 +11302,7 @@ Transform:
   m_GameObject: {fileID: 1900306852}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.3, y: 5.5, z: 0}
+  m_LocalPosition: {x: 12.14, y: 4.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11549,6 +11549,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d561e978cd8f4f54ca90f98cb312feb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selfEnemyStageControl: {fileID: 0}
+  selfEnemyControl: {fileID: 0}
+  rb: {fileID: 0}
+  position1: {x: 4.01, y: 10.06, z: 0}
+  ScattingBulletPrefab: {fileID: 2779512472296037740, guid: dd8b57ff0808ed64d8b48fb69e14e118, type: 3}
+  RedBulletPrefab: {fileID: 5023923935977690016, guid: 133f0ca06ea8db846adc68562ee14474, type: 3}
+  MoonPrefab: {fileID: 4259612710792193413, guid: 9737a5664e28df341a235fc22ec2b240, type: 3}
+  health: 0
+  stageLastTime: 0
+  shootCooldown: 3
+  moonShootCooldown: 5
+  bulletSpeed: 10
+  RedbulletSpeed: 20
+  MoonbulletSpeed: 10
+  RedbulletCount: 50
+  flyDuration: 0
+  d: 5
+  baseSpeed: 1
+  leftX: -29
+  rightX: 22
+  bottomY: 19
+  topY: 24
+  isStart: 0
+  isFollow: 0
 --- !u!1 &1939194650
 GameObject:
   m_ObjectHideFlags: 0

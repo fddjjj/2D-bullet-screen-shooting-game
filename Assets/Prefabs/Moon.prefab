@@ -163,6 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3967812303944346816, guid: e59a3b4249efe9f4a81fff050456319b, type: 3}
   shootCooldown: 1
-  bulletSpeed: 2
+  bulletSpeed: 5
   bulletCount: 30
   radius: 3

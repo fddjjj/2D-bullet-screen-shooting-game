@@ -16,6 +16,7 @@ public class RedCircleController : MonoBehaviour
         if(Vector3.Distance(PlayerStateManager.Instance.playerTransform.position,transform.position) <= checkRadius && !isChange)
         {
             rb.velocity = rb.velocity * 0.1f;
+            isChange = true;
         }
 
     }
