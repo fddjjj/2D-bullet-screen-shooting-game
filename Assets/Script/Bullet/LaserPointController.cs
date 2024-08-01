@@ -80,7 +80,7 @@ public class LaserPointController : MonoBehaviour
             Debug.DrawRay(transform.position, dir * 1000, Color.red,100f);
             if (hit.collider != null)
             {
-                Debug.Log("find Ground");
+                //Debug.Log("find Ground");
                 Vector3 scale = laser.localScale;
                 scale.y = hit.distance / laserLength; // 调整激光长度
                 laser.localScale = scale;

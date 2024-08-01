@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ThirdStageSkill : MonoBehaviour
@@ -25,7 +26,8 @@ public class ThirdStageSkill : MonoBehaviour
     //public Transform playerTransform;
 
     [Header("属性")]
-    public float health;
+    public float Maxhealth;
+    public float currentHealth;
     public float stageLastTime;
     public float redLaserLength;
     public float fireInterval;// 每个子弹之间的延迟
@@ -35,66 +37,71 @@ public class ThirdStageSkill : MonoBehaviour
     public float d = 5f; // 设定的距离阈值
     public float baseSpeed = 1f; // 基础速度因子
     [Header("状态")]
-    public bool isStart;
+    public bool isStart = true;
     public bool isFollow;
+    public bool isEnter = true;
+    public bool isNeedMove = false;
     private void Awake()
     {
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        health = 1000;
         stageLastTime = 40;
-
         isFollow = true;
-
-        //FIXME:调试用代码记得删
-        rb.position = position1;
     }
     private void Update()
     {
         if (selfEnemyStageControl.currentStage != Stage.ThirdStage) return;
         stageLastTime -= Time.deltaTime;
-        if (isFollow)
+        currentHealth = selfEnemyStageControl.EnemyHealth;
+        if (isEnter)
         {
-            FollowPlayer();
-            if(!isStart)
+
+        }else
+        {
+            if (stageLastTime <= 0 ||  currentHealth<= 0)
             {
-                isStart = true;
-                moveCoroutine = StartCoroutine(StageOne());
+                //在这边停止一阶段的所有协程然后转阶段
+                if (moveCoroutine != null)
+                    StopCoroutine(moveCoroutine);
+                selfEnemyStageControl.ChangeStage(Stage.FourthStage);
+
+            }
+            else
+            {
+                if (isFollow)
+                {
+                    FollowPlayer();
+                    if (!isStart)
+                    {
+                        isStart = true;
+                        moveCoroutine = StartCoroutine(StageOne());
+                    }
+                }
+                else
+                {
+                    if (isNeedMove)
+                    {
+                        rb.velocity = Vector3.zero;
+                        //isStart = true;
+                        StartCoroutine(Move());
+                    }
+                    if (!isStart && ! isNeedMove)
+                    {
+                        isStart = true;
+                        moveCoroutine = StartCoroutine(StageTwo());
+                    }
+                }
             }
         }
-        else
-        {
-            if (!isStart)
-            {
-                isStart = true;
-                moveCoroutine = StartCoroutine(StageTwo());
-            }
-        }
-
-        //if (stageLastTime <= 0 || health <= 0)
-        //{
-        //    //在这边停止一阶段的所有协程然后转阶段
-        //    if (moveCoroutine != null)
-        //        StopCoroutine(moveCoroutine);
-
-        //}
-        //else
-        //{
-        //    if (!isStart)
-        //    {
-        //        //StartCoroutine();
-        //        isStart = true;
-        //        //moveCoroutine = StartCoroutine(GenerateShootingPointsCoroutine());
-        //    }
-
-        //}
     }
 
     public void OnEnter()
     {
-        health = 1000;
+        currentHealth = Maxhealth;
         stageLastTime = 40;
+        StartCoroutine(Move());
+        
     }
     public void FollowPlayer()
     {
@@ -157,6 +164,8 @@ public class ThirdStageSkill : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         isFollow =false;
         isStart = false;
+        isNeedMove = true;
+        yield break;
     }
     IEnumerator StageTwo()
     {
@@ -169,6 +178,7 @@ public class ThirdStageSkill : MonoBehaviour
         InstantiateLaserPoint(movePosition6, movePosition5,270);
         yield return new WaitForSeconds(3f);
         isStart = false;
+        yield break;
 
     }
     void InstantiateLaserPoint(Vector3 targetPosition,Vector3 startPosition,float angle)
@@ -211,5 +221,22 @@ public class ThirdStageSkill : MonoBehaviour
             vector.x * cos - vector.y * sin,
             vector.x * sin + vector.y * cos
         );
+    }
+    private IEnumerator Move()
+    {
+        Vector2 startPosition = rb.position;
+        float duringTime = 0f;
+        while (duringTime < flyDuration)
+        {
+            duringTime += Time.deltaTime;
+            float t = duringTime / flyDuration;
+            Vector2 newPosition = Vector2.Lerp(startPosition, position1, t);
+            rb.MovePosition(newPosition);
+            yield return null;
+        }
+        rb.MovePosition(position1);
+        isNeedMove = false;
+        isEnter = false;
+        yield break;
     }
 }

@@ -15,7 +15,8 @@ public class FourthStageSkill : MonoBehaviour
     //public Transform playerTransform;
 
     [Header("属性")]
-    public float health;
+    public float Maxhealth;
+    public float currentHealth;
     public float stageLastTime;
     public float shootCooldown;// 每个子弹之间的延迟
     public float bulletSpeed;// 子弹速度
@@ -39,19 +40,17 @@ public class FourthStageSkill : MonoBehaviour
     [Header("状态")]
     public bool isStart;
     public bool isFollow;
+    public bool isEnter;
     private bool isGrowing = true; // 是否在变大
     private void Awake()
     {
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        health = 1000;
         stageLastTime = 40;
-
         isFollow = true;
-
-        //FIXME:调试用代码记得删
-        rb.position = position1;
+        isStart = true;
+        isEnter = true;
     }
     void Start()
     {
@@ -62,38 +61,38 @@ public class FourthStageSkill : MonoBehaviour
     private void Update()
     {
         if (selfEnemyStageControl.currentStage != Stage.FourthStage) return;
+        currentHealth = selfEnemyStageControl.EnemyHealth;
         stageLastTime -= Time.deltaTime;
-        FollowPlayer();
-        if (isGrowing)
+        if (isEnter)
         {
-            MoonTransform.gameObject.SetActive(true);
-            GrowAndMoveToOrbit();
-        }
-        else
+
+        }else
         {
-            ShootTransform.gameObject.SetActive(true);
-            MoveInCircularPath();
-            MoveShootPosition();
-            ShootBullets();
+            FollowPlayer();
+            if (isGrowing)
+            {
+                MoonTransform.gameObject.SetActive(true);
+                GrowAndMoveToOrbit();
+            }
+            else
+            {
+                ShootTransform.gameObject.SetActive(true);
+                MoveInCircularPath();
+                MoveShootPosition();
+                ShootBullets();
+            }
+
+            if (stageLastTime <= 0 || currentHealth<= 0)
+            {
+                //在这边停止一阶段的所有协程然后转阶段
+                if (moveCoroutine != null)
+                    StopCoroutine(moveCoroutine);
+                selfEnemyStageControl.ChangeStage(Stage.FifthStage);
+                MoonTransform.gameObject.SetActive(false);
+                ShootTransform.gameObject.SetActive(false);
+            }
         }
-
-        //if (stageLastTime <= 0 || health <= 0)
-        //{
-        //    //在这边停止一阶段的所有协程然后转阶段
-        //    if (moveCoroutine != null)
-        //        StopCoroutine(moveCoroutine);
-
-        //}
-        //else
-        //{
-        //    if (!isStart)
-        //    {
-        //        //StartCoroutine();
-        //        isStart = true;
-        //        //moveCoroutine = StartCoroutine(GenerateShootingPointsCoroutine());
-        //    }
-
-        //}
+       
     }
 
     private void GrowAndMoveToOrbit()
@@ -140,8 +139,9 @@ public class FourthStageSkill : MonoBehaviour
     }
     public void OnEnter()
     {
-        health = 1000;
+        currentHealth = Maxhealth;
         stageLastTime = 40;
+        StartCoroutine(Move());
     }
     public void FollowPlayer()
     {
@@ -216,5 +216,22 @@ public class FourthStageSkill : MonoBehaviour
             vector.x * cos - vector.y * sin,
             vector.x * sin + vector.y * cos
         );
+    }
+    private IEnumerator Move()
+    {
+        Vector2 startPosition = rb.position;
+        float duringTime = 0f;
+        while (duringTime < flyDuration)
+        {
+            duringTime += Time.deltaTime;
+            float t = duringTime / flyDuration;
+            Vector2 newPosition = Vector2.Lerp(startPosition, position1, t);
+            rb.MovePosition(newPosition);
+            yield return null;
+        }
+        rb.MovePosition(position1);
+        isStart = false;
+        isEnter = false;
+        yield break;
     }
 }

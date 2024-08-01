@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.CinemachineTargetGroup;
 using static UnityEngine.GraphicsBuffer;
 
 public class FirstStageSkill : MonoBehaviour
@@ -18,7 +19,8 @@ public class FirstStageSkill : MonoBehaviour
     //public Transform playerTransform;
 
     [Header("属性")]
-    public float health;
+    public float Maxhealth;
+    public float currentHealth;
     public float stageLastTime;
     public float sideOffsetAngle; // 预警激光左右偏移角度
     public float redLaserLength;
@@ -39,18 +41,20 @@ public class FirstStageSkill : MonoBehaviour
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        health = 1000;
         stageLastTime = 40;
+        isStart = true;
     }
     private void Update()
     {
         if (selfEnemyStageControl.currentStage != Stage.FirstStage) return;
         stageLastTime -= Time.deltaTime;
-        if (stageLastTime <= 0 || health <= 0)
+        currentHealth = selfEnemyStageControl.EnemyHealth;
+        if (stageLastTime <= 0 || currentHealth <= 0)
         {
             //在这边停止一阶段的所有协程然后转阶段
             if(moveCoroutine != null)
                 StopCoroutine(moveCoroutine);
+            selfEnemyStageControl.ChangeStage(Stage.SecondStage);
 
         }
         else
@@ -68,8 +72,9 @@ public class FirstStageSkill : MonoBehaviour
 
     public void OnEnter()
     {
-        health = 1000;
+        currentHealth = Maxhealth;
         stageLastTime = 40;
+        StartCoroutine(Move());
     }
     IEnumerator SpawnLaserPoints()
     {
@@ -163,7 +168,7 @@ public class FirstStageSkill : MonoBehaviour
             //Debug.Log(elapsedTime);
             yield return new WaitForSeconds(fireInterval);
         }
-        Debug.Log(count);
+        //Debug.Log(count);
        //// 确保最后一个子弹发射在右偏移20度的位置
        //Vector2 finalDirection = RotateVector(dir, Angle);
        // FireBulletInDirection(finalDirection);
@@ -213,6 +218,23 @@ public class FirstStageSkill : MonoBehaviour
         rb.MovePosition(target);
         yield return SpawnLaserPoints();
         yield return StartScatteringBullet();
+        isStart = false;
+        yield break;
+    }
+
+    private IEnumerator Move()
+    {
+        Vector2 startPosition = rb.position;
+        float duringTime = 0f;
+        while(duringTime < flyDuration)
+        {
+            duringTime += Time.deltaTime;
+            float t = duringTime / flyDuration;
+            Vector2 newPosition = Vector2.Lerp(startPosition, position1, t);
+            rb.MovePosition(newPosition);
+            yield return null;
+        }
+        rb.MovePosition(position1);
         isStart = false;
         yield break;
     }

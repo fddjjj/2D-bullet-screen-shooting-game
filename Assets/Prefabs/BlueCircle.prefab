@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1200966469183935284}
   - component: {fileID: 3353802991415784877}
   - component: {fileID: 7498580404312122787}
+  - component: {fileID: -6688508925923907166}
   m_Layer: 0
   m_Name: BlueCircle
   m_TagString: Untagged
@@ -161,3 +162,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6688508925923907166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967812303944346816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  SelfType: Enemy

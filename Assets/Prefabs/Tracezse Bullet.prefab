@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 539154792672219638}
   - component: {fileID: 925010675084188995}
   - component: {fileID: 8273840022638599497}
+  - component: {fileID: 5288645016219502065}
   m_Layer: 0
   m_Name: Tracezse Bullet
   m_TagString: Untagged
@@ -184,3 +185,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4279d6fee36d0447b2880b5dc57324e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 0
+  startControl: 0
+--- !u!114 &5288645016219502065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2825084149268479143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  type: 1

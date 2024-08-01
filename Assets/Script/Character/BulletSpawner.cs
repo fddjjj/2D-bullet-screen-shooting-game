@@ -19,6 +19,7 @@ public class BulletSpawner : MonoBehaviour
     public AttackData_SO Scattering;
     public AttackData_SO Cast;
     public AttackData_SO Tracezse;
+    public AttackData_SO Laser;
 
     public GameObject laserObject = null;//实际激光
     public LaserSelfController laserController = null;
@@ -57,6 +58,8 @@ public class BulletSpawner : MonoBehaviour
                     if (laserObject == null)
                         laserObject = Instantiate(bulletLaserPrefab, shootPoint.position, Quaternion.identity);
                     laserController = laserObject.GetComponent<LaserSelfController>();
+                    CauseDamage cd = laserObject.GetComponent<CauseDamage>();
+                    cd.damage = Laser.attackDamage;
                     FireLaserBullets();
                     break;
                 case AttackTypes.tracezse:
@@ -106,6 +109,8 @@ public class BulletSpawner : MonoBehaviour
         GameObject bullet = Instantiate(bulletScattingPrefab, position, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
+        CauseDamage cd = bullet.GetComponent<CauseDamage>();
+        cd.damage = Scattering.attackDamage;
     }
     void FireCastBullets()
     {
@@ -124,6 +129,8 @@ public class BulletSpawner : MonoBehaviour
         GameObject bullet = Instantiate(bulletCastPrefab, position, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
+        CauseDamage cd = bullet.GetComponent<CauseDamage>();
+        cd.damage = Cast.attackDamage;
     }
 
     void FireLaserBullets()
@@ -141,6 +148,7 @@ public class BulletSpawner : MonoBehaviour
         laserController.ray = direction;
         laserObject.transform.rotation = Quaternion.Euler(0, 0, angle - 90); // 减去90度，使0度旋转竖直向上
         laserController.isAttacking = playerState.isShooting;
+        
     }
     void FireTracezseBullets()
     {
@@ -170,5 +178,7 @@ public class BulletSpawner : MonoBehaviour
         bullet.GetComponent<TracezseSelfControl>().startControl = 0.5f;
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed * 2;
+        CauseDamage cd = bullet.GetComponent<CauseDamage>();
+        cd.damage = Tracezse.attackDamage;
     }
 }

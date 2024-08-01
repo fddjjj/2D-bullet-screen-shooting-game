@@ -17,7 +17,8 @@ public class SecondStageSkill : MonoBehaviour
     //public Transform playerTransform;
 
     [Header("属性")]
-    public float health;
+    public float Maxhealth;
+    public float currentHealth;
     public float stageLastTime;
     public float sideOffsetAngle; // 预警激光左右偏移角度
     public float redLaserLength;
@@ -35,22 +36,20 @@ public class SecondStageSkill : MonoBehaviour
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        health = 1000;
         stageLastTime = 40;
-
-        //FIXME:调试用代码记得删
-        rb.position = position1;
+        isStart = true;
     }
     private void Update()
     {
         if (selfEnemyStageControl.currentStage != Stage.SecondStage) return;
         stageLastTime -= Time.deltaTime;
-        if (stageLastTime <= 0 || health <= 0)
+        currentHealth = selfEnemyStageControl.EnemyHealth;
+        if (stageLastTime <= 0 || currentHealth <= 0)
         {
             //在这边停止一阶段的所有协程然后转阶段
             if (moveCoroutine != null)
                 StopCoroutine(moveCoroutine);
-
+            selfEnemyStageControl.ChangeStage(Stage.ThirdStage);
         }
         else
         {
@@ -66,8 +65,9 @@ public class SecondStageSkill : MonoBehaviour
 
     public void OnEnter()
     {
-        health = 1000;
+        currentHealth = Maxhealth;
         stageLastTime = 40;
+        StartCoroutine(Move());
     }
     void InstantiateLaserPoint(Vector3 targetPosition)
     {
@@ -123,7 +123,7 @@ public class SecondStageSkill : MonoBehaviour
         //Debug.DrawRay(transform.position, dir * 1000, Color.red,100f);
         if (hit.collider != null)
         {
-            Debug.Log("find");
+            //Debug.Log("find");
             Vector3 scale = laser.localScale;
             scale.y = hit.distance/redLaserLength; // 调整激光长度
             laser.localScale = scale;
@@ -252,4 +252,21 @@ public class SecondStageSkill : MonoBehaviour
         rb.MovePosition(target);
         yield break;
     }
+    private IEnumerator Move()
+    {
+        Vector2 startPosition = rb.position;
+        float duringTime = 0f;
+        while (duringTime < flyDuration)
+        {
+            duringTime += Time.deltaTime;
+            float t = duringTime / flyDuration;
+            Vector2 newPosition = Vector2.Lerp(startPosition, position1, t);
+            rb.MovePosition(newPosition);
+            yield return null;
+        }
+        rb.MovePosition(position1);
+        isStart = false;
+        yield break;
+    }
+
 }

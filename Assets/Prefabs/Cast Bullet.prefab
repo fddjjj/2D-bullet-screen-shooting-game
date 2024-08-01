@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 7869301230122908137}
   - component: {fileID: 447837364228775582}
   - component: {fileID: 2639099809522577597}
+  - component: {fileID: -3973321683077742881}
   m_Layer: 0
   m_Name: Cast Bullet
   m_TagString: Untagged
@@ -307,3 +308,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3973321683077742881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058001289693297745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  type: 1

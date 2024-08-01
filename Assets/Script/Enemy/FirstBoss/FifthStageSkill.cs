@@ -14,7 +14,8 @@ public class FifthStageSkill : MonoBehaviour
     public GameObject MoonPrefab;
 
     [Header("属性")]
-    public float health;
+    public float Maxhealth;
+    public float currentHealth;
     public float stageLastTime;
     public float shootCooldown;// 每个子弹之间的延迟
     public float moonShootCooldown;
@@ -35,18 +36,16 @@ public class FifthStageSkill : MonoBehaviour
     [Header("状态")]
     public bool isStart;
     public bool isFollow;
+    public bool isEnter = true;
     private void Awake()
     {
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        health = 1000;
         stageLastTime = 40;
-
+        isEnter = true;
         isFollow = false;
 
-        //FIXME:调试用代码记得删
-        rb.position = position1;
     }
     private void Update()
     {
@@ -54,49 +53,46 @@ public class FifthStageSkill : MonoBehaviour
         stageLastTime -= Time.deltaTime;
         shootTimer += Time.deltaTime;
         moonShootTimer += Time.deltaTime;
-        if(isFollow)
+        currentHealth = selfEnemyStageControl.EnemyHealth;
+        if (isEnter)
         {
-            FollowPlayer();
-            if (shootTimer > shootCooldown)
+
+        }else
+        {
+            if (isFollow)
             {
-                shootTimer = 0f;
-                StartCoroutine(ShootBullet());
+                FollowPlayer();
+                if (shootTimer > shootCooldown)
+                {
+                    shootTimer = 0f;
+                    StartCoroutine(ShootBullet());
+                }
+                if (moonShootTimer > moonShootCooldown)
+                {
+                    moonShootTimer = 0f;
+                    StartCoroutine(MoonShoot());
+                }
             }
-            if(moonShootTimer > moonShootCooldown)
+            else
             {
-                moonShootTimer = 0f;
-                StartCoroutine(MoonShoot());
+                if (!isStart)
+                    moveCoroutine = StartCoroutine(ShootRedBullet());
+            }
+            if (stageLastTime <= 0 || currentHealth <= 0)
+            {
+                //在这边停止一阶段的所有协程然后转阶段
+                if (moveCoroutine != null)
+                    StopCoroutine(moveCoroutine);
+                selfEnemyStageControl.ChangeStage(Stage.SixthStage);
             }
         }
-        else
-        {
-            if(!isStart)
-                moveCoroutine = StartCoroutine(ShootRedBullet());
-        }
-
-
-        //if (stageLastTime <= 0 || health <= 0)
-        //{
-        //    //在这边停止一阶段的所有协程然后转阶段
-        //    if (moveCoroutine != null)
-        //        StopCoroutine(moveCoroutine);
-
-        //}
-        //else
-        //{
-        //    if (!isStart)
-        //    {
-        //        //StartCoroutine();
-        //        isStart = true;
-        //        //moveCoroutine = StartCoroutine(GenerateShootingPointsCoroutine());
-        //    }
-
-        //}
+       
     }
     public void OnEnter()
     {
-        health = 1000;
+        currentHealth = Maxhealth;
         stageLastTime = 40;
+        StartCoroutine(Move());
     }
     private IEnumerator ShootRedBullet()
     {
@@ -235,5 +231,23 @@ public class FifthStageSkill : MonoBehaviour
             vector.x * cos - vector.y * sin,
             vector.x * sin + vector.y * cos
         );
+    }
+    private IEnumerator Move()
+    {
+        Vector2 startPosition = rb.position;
+        float duringTime = 0f;
+        while (duringTime < flyDuration)
+        {
+            duringTime += Time.deltaTime;
+            float t = duringTime / flyDuration;
+            Vector2 newPosition = Vector2.Lerp(startPosition, position1, t);
+            rb.MovePosition(newPosition);
+            yield return null;
+        }
+        rb.MovePosition(position1);
+        rb.velocity = Vector3.zero;
+        isStart = false;
+        isEnter = false;
+        yield break;
     }
 }
