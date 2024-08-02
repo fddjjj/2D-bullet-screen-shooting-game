@@ -64,6 +64,8 @@ public class ThirdStageSkill : MonoBehaviour
                 //在这边停止一阶段的所有协程然后转阶段
                 if (moveCoroutine != null)
                     StopCoroutine(moveCoroutine);
+                ObjectPool.Instance.SetFalse("RedLaserPointPrefab");
+                ObjectPool.Instance.SetFalse("BossStar");
                 selfEnemyStageControl.ChangeStage(Stage.FourthStage);
 
             }
@@ -183,7 +185,8 @@ public class ThirdStageSkill : MonoBehaviour
     }
     void InstantiateLaserPoint(Vector3 targetPosition,Vector3 startPosition,float angle)
     {
-        GameObject laserPoint = Instantiate(laserPointPrefab, startPosition, Quaternion.identity);
+        //GameObject laserPoint = Instantiate(laserPointPrefab, startPosition, Quaternion.identity);
+        GameObject laserPoint = ObjectPool.Instance.CreateObject("RedLaserPointPrefab", laserPointPrefab, startPosition, Quaternion.identity);
         LaserRedPointController controller = laserPoint.GetComponent<LaserRedPointController>();
         if (controller != null)
         {
@@ -202,7 +205,8 @@ public class ThirdStageSkill : MonoBehaviour
     private void FireBulletInDirection(Vector2 direction,Vector3 startPosition)
     {
         // 创建子弹实例
-        GameObject bullet = Instantiate(ScattingBulletPrefab, startPosition, Quaternion.identity);
+        //GameObject bullet = Instantiate(ScattingBulletPrefab, startPosition, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("BossStar",ScattingBulletPrefab, startPosition, Quaternion.identity);
         //Debug.Log("Create");
         // 设置子弹的速度
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

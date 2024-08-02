@@ -38,7 +38,8 @@ public class LaserRedPointController : MonoBehaviour
 
         transform.position = targetPosition;
 
-        Destroy(gameObject); // 销毁 LaserPoint 对象
+        //Destroy(gameObject); // 销毁 LaserPoint 对象
+        ObjectPool.Instance.CollectObject(gameObject);
     }
 
     private void AdjustLaser(Transform laser)

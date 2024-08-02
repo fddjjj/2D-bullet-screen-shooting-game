@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 311344229032570932}
   - component: {fileID: 3515178206534638133}
   - component: {fileID: 5255802181107549282}
-  - component: {fileID: 983842020473681896}
+  - component: {fileID: 3099982144177196215}
   m_Layer: 0
   m_Name: Moon
   m_TagString: Untagged
@@ -167,7 +167,7 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletCount: 30
   radius: 3
---- !u!114 &983842020473681896
+--- !u!114 &3099982144177196215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4259612710792193413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aa648ee95f65534d8305f25631f4ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  SelfType: Enemy
+  type: 0

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1875290838879289465}
   - component: {fileID: 1200966469183935284}
   - component: {fileID: 3353802991415784877}
-  - component: {fileID: 7498580404312122787}
-  - component: {fileID: -6688508925923907166}
+  - component: {fileID: 5144110946131769923}
+  - component: {fileID: 853773980795158764}
   m_Layer: 0
   m_Name: BlueCircle
   m_TagString: Untagged
@@ -150,7 +150,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
---- !u!114 &7498580404312122787
+--- !u!114 &5144110946131769923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,20 +159,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3967812303944346816}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-6688508925923907166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3967812303944346816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f15dbad72e179742a425af5cce5c18d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  SelfType: Enemy
+  type: 0
+--- !u!114 &853773980795158764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967812303944346816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea8db6e8c34c1a489dd1631ea6179a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

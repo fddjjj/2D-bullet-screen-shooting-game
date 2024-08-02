@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2311596539463000325}
   - component: {fileID: 6970033922948122874}
   - component: {fileID: 1310345194360548746}
-  - component: {fileID: 8219387765383145749}
-  - component: {fileID: 92463450422452888}
+  - component: {fileID: 2498401288435816183}
+  - component: {fileID: 6618248793224287347}
   m_Layer: 0
   m_Name: Straight-line bullet
   m_TagString: Untagged
@@ -150,7 +150,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.001482904, y: 0.0014828447}
   m_Size: {x: 0.6352073, y: 0.33095446}
   m_Direction: 1
---- !u!114 &8219387765383145749
+--- !u!114 &2498401288435816183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,10 +159,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 518672074595623272}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
+  m_Script: {fileID: 11500000, guid: bc68f62927a7de943a37c8d025272f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &92463450422452888
+--- !u!114 &6618248793224287347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 518672074595623272}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dbef6f9ee6f91e4ebec2ea7bf393071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0

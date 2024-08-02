@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2282510085917003730}
   - component: {fileID: 7782050523613260970}
   - component: {fileID: 3139191766203975224}
-  - component: {fileID: 7685742859062834859}
   - component: {fileID: 8927067808770659101}
-  - component: {fileID: -8740090703208402527}
+  - component: {fileID: 9026804099499637013}
+  - component: {fileID: 8110591048783960970}
   m_Layer: 0
   m_Name: RedCircle
   m_TagString: Untagged
@@ -151,18 +151,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7685742859062834859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5023923935977690016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8927067808770659101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkRadius: 5
---- !u!114 &-8740090703208402527
+--- !u!114 &9026804099499637013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,8 +173,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5023923935977690016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b9cff9ae3f91da4697f1e20e1b3f262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  SelfType: Enemy
+  type: 0
+--- !u!114 &8110591048783960970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5023923935977690016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7fbd48f22c596c44adfe4ad06138aff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

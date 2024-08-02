@@ -54,6 +54,9 @@ public class FirstStageSkill : MonoBehaviour
             //在这边停止一阶段的所有协程然后转阶段
             if(moveCoroutine != null)
                 StopCoroutine(moveCoroutine);
+            ObjectPool.Instance.SetFalse("BlueLaserPointPrefab");
+            ObjectPool.Instance.SetFalse("RedLaserWarningPrefab");
+            ObjectPool.Instance.SetFalse("BossStar");
             selfEnemyStageControl.ChangeStage(Stage.SecondStage);
 
         }
@@ -93,7 +96,11 @@ public class FirstStageSkill : MonoBehaviour
 
     void InstantiateLaserPoint(Vector3 targetPosition,float deflectionAngle)
     {
-        GameObject laserPoint = Instantiate(laserPointPrefab, transform.position, Quaternion.identity);
+        //GameObject laserPoint = Instantiate(laserPointPrefab, transform.position, Quaternion.identity);
+        //Debug.Log("Start Create");
+        GameObject laserPoint = ObjectPool.Instance.CreateObject("BlueLaserPointPrefab", laserPointPrefab, transform.position, Quaternion.identity);
+        //Debug.Log("Create");
+        //Debug.Log(laserPoint);
         LaserPointController controller = laserPoint.GetComponent<LaserPointController>();
         if (controller != null)
         {
@@ -108,9 +115,12 @@ public class FirstStageSkill : MonoBehaviour
         GameObject mainLaser;
         GameObject leftLaser;
         GameObject rightLaser;
-        mainLaser = Instantiate(LaserRedPrefab, transform.position, Quaternion.identity, transform);
-        leftLaser = Instantiate(LaserRedPrefab, transform.position, Quaternion.identity, transform);
-        rightLaser = Instantiate(LaserRedPrefab, transform.position, Quaternion.identity, transform);
+        //mainLaser = Instantiate(LaserRedPrefab, transform.position, Quaternion.identity);
+        //leftLaser = Instantiate(LaserRedPrefab, transform.position, Quaternion.identity);
+        //rightLaser = Instantiate(LaserRedPrefab, transform.position, Quaternion.identity);
+        mainLaser = ObjectPool.Instance.CreateObject("RedLaserWarningPrefab",LaserRedPrefab, transform.position, Quaternion.identity);
+        leftLaser = ObjectPool.Instance.CreateObject("RedLaserWarningPrefab", LaserRedPrefab, transform.position, Quaternion.identity);
+        rightLaser = ObjectPool.Instance.CreateObject("RedLaserWarningPrefab", LaserRedPrefab, transform.position, Quaternion.identity);
         // 设置激光指向角色位置
         Vector2 direction = (PlayerStateManager.Instance.playerTransform.position - transform.position).normalized;
         //Debug.DrawRay(transform.position, direction * 1000, Color.blue, 100f);
@@ -125,9 +135,12 @@ public class FirstStageSkill : MonoBehaviour
         AdjustLaser(leftLaser.transform,directionLeft);
         AdjustLaser(rightLaser.transform,directionRight);
         yield return new WaitForSeconds(1f);
-        Destroy(mainLaser);
-        Destroy(leftLaser);
-        Destroy(rightLaser);
+        //Destroy(mainLaser);
+        //Destroy(leftLaser);
+        //Destroy(rightLaser);
+        ObjectPool.Instance.CollectObject(mainLaser);
+        ObjectPool.Instance.CollectObject(leftLaser);
+        ObjectPool.Instance.CollectObject(rightLaser);
         yield return FireBullets(direction, spreadAngle);
         yield return FireBullets(direction,-spreadAngle);
         yield return FireBullets(direction, spreadAngle);
@@ -177,7 +190,8 @@ public class FirstStageSkill : MonoBehaviour
     private void FireBulletInDirection(Vector2 direction)
     {
         // 创建子弹实例
-        GameObject bullet = Instantiate(ScattingBulletPrefab, transform.position, Quaternion.identity);
+        //GameObject bullet = Instantiate(ScattingBulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("BossStar", ScattingBulletPrefab,transform.position, Quaternion.identity);
         //Debug.Log("Create");
         // 设置子弹的速度
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

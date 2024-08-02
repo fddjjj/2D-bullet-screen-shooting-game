@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3671628227876046628}
   - component: {fileID: 4356268359088068322}
   - component: {fileID: 7684171042088301262}
-  - component: {fileID: 3417735361834492625}
-  - component: {fileID: -1925338611588705831}
+  - component: {fileID: 6198271570950752927}
+  - component: {fileID: 5517603474215416469}
   m_Layer: 0
   m_Name: BossStar
   m_TagString: Untagged
@@ -160,7 +160,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.94, y: 5.81}
   m_EdgeRadius: 0
---- !u!114 &3417735361834492625
+--- !u!114 &6198271570950752927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,10 +169,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2779512472296037740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 20021c16fc56a754b9eb38f1f2b9668d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1925338611588705831
+--- !u!114 &5517603474215416469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,8 +181,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2779512472296037740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: f93a9048f9c239547814348481e161ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  SelfType: Emeny
+  type: 0

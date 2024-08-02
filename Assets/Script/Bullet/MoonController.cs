@@ -41,7 +41,8 @@ public class MoonController : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground") && isChange)
-            Destroy(gameObject);
+            ObjectPool.Instance.CollectObject(gameObject);
+            //Destroy(gameObject);
     }
 
     void ShootBullets()
@@ -53,7 +54,8 @@ public class MoonController : MonoBehaviour
             float angleRad = angle * Mathf.Deg2Rad; // 将角度转换为弧度
             Vector3 spawnPosition = transform.position + new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0f) * radius;
             // 实例化子弹
-            GameObject bullet = Instantiate(bulletPrefab,spawnPosition, Quaternion.identity);
+            //GameObject bullet = Instantiate(bulletPrefab,spawnPosition, Quaternion.identity);
+            GameObject bullet = ObjectPool.Instance.CreateObject("BlueCircle", bulletPrefab, spawnPosition, Quaternion.identity);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 
             // 设置子弹速度

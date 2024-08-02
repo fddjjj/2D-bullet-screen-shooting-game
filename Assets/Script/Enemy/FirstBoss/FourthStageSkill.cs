@@ -87,6 +87,7 @@ public class FourthStageSkill : MonoBehaviour
                 //在这边停止一阶段的所有协程然后转阶段
                 if (moveCoroutine != null)
                     StopCoroutine(moveCoroutine);
+                ObjectPool.Instance.SetFalse("BossStar");
                 selfEnemyStageControl.ChangeStage(Stage.FifthStage);
                 MoonTransform.gameObject.SetActive(false);
                 ShootTransform.gameObject.SetActive(false);
@@ -197,7 +198,8 @@ public class FourthStageSkill : MonoBehaviour
     private void FireBulletInDirection(Vector2 direction, Vector3 startPosition)
     {
         // 创建子弹实例
-        GameObject bullet = Instantiate(ScattingBulletPrefab, startPosition, Quaternion.identity);
+        //GameObject bullet = Instantiate(ScattingBulletPrefab, startPosition, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("BossStar", ScattingBulletPrefab, startPosition, Quaternion.identity);
         //Debug.Log("Create");
         // 设置子弹的速度
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2940179477910758330}
   - component: {fileID: 479015286489026127}
   - component: {fileID: 4453492820577240687}
-  - component: {fileID: 4009876320942861425}
+  - component: {fileID: 9174340454797788436}
   m_Layer: 0
   m_Name: Laser_blue
   m_TagString: Untagged
@@ -180,7 +180,7 @@ MonoBehaviour:
   scale: {x: 0, y: 0, z: 0}
   isAttacking: 0
   countTime: 0
---- !u!114 &4009876320942861425
+--- !u!114 &9174340454797788436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 468499709478751392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 07126c95e1aab0d478b63b037050bb68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0

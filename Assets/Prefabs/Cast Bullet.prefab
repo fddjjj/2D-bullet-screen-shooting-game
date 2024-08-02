@@ -157,8 +157,8 @@ GameObject:
   - component: {fileID: 1527547436466395855}
   - component: {fileID: 7869301230122908137}
   - component: {fileID: 447837364228775582}
-  - component: {fileID: 2639099809522577597}
-  - component: {fileID: -3973321683077742881}
+  - component: {fileID: 8885808640464611582}
+  - component: {fileID: 3908028458881509468}
   m_Layer: 0
   m_Name: Cast Bullet
   m_TagString: Untagged
@@ -296,7 +296,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.99999994, y: 0.99999994}
   m_Direction: 0
---- !u!114 &2639099809522577597
+--- !u!114 &8885808640464611582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,10 +305,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4058001289693297745}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
+  m_Script: {fileID: 11500000, guid: cdf31900c036b944a9d44bd83ba52776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-3973321683077742881
+--- !u!114 &3908028458881509468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4058001289693297745}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: bc6b4d1b3b4a5fb40a05042a7010bfad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0

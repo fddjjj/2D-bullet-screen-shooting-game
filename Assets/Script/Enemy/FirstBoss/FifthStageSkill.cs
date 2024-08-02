@@ -83,6 +83,10 @@ public class FifthStageSkill : MonoBehaviour
                 //在这边停止一阶段的所有协程然后转阶段
                 if (moveCoroutine != null)
                     StopCoroutine(moveCoroutine);
+                ObjectPool.Instance.SetFalse("BossStar");
+                ObjectPool.Instance.SetFalse("RedCircle");
+                ObjectPool.Instance.SetFalse("Moon");
+                ObjectPool.Instance.SetFalse("BlueCircle");
                 selfEnemyStageControl.ChangeStage(Stage.SixthStage);
             }
         }
@@ -144,7 +148,8 @@ public class FifthStageSkill : MonoBehaviour
     {
         Vector3 direction = new Vector3(Random.Range(leftX, rightX), Random.Range(bottomY, topY), 0);
         Vector2 dir = (PlayerStateManager.Instance.playerTransform.position - direction).normalized;
-        GameObject bullet = Instantiate(MoonPrefab, direction, Quaternion.identity);
+        //GameObject bullet = Instantiate(MoonPrefab, direction, Quaternion.identity);
+        GameObject bullet =  ObjectPool.Instance.CreateObject("Moon", MoonPrefab, direction, Quaternion.identity);
         //Debug.Log("Create");
         // 设置子弹的速度
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -190,7 +195,8 @@ public class FifthStageSkill : MonoBehaviour
     private void FireRedBulletInDirection(Vector2 direction, Vector3 startPosition)
     {
         // 创建子弹实例
-        GameObject bullet = Instantiate(RedBulletPrefab, startPosition, Quaternion.identity);
+        //GameObject bullet = Instantiate(RedBulletPrefab, startPosition, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("RedCircle", RedBulletPrefab, startPosition, Quaternion.identity);
         //Debug.Log("Create");
         // 设置子弹的速度
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -202,7 +208,8 @@ public class FifthStageSkill : MonoBehaviour
     private void FireBulletInDirection(Vector2 direction, Vector3 startPosition)
     {
         // 创建子弹实例
-        GameObject bullet = Instantiate(ScattingBulletPrefab, startPosition, Quaternion.identity);
+        //GameObject bullet = Instantiate(ScattingBulletPrefab, startPosition, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("BossStar",ScattingBulletPrefab, startPosition, Quaternion.identity);
         //Debug.Log("Create");
         // 设置子弹的速度
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

@@ -106,7 +106,8 @@ public class BulletSpawner : MonoBehaviour
 
     void SpawnScatteringBullet(Vector2 position, Vector2 direction)
     {
-        GameObject bullet = Instantiate(bulletScattingPrefab, position, Quaternion.identity);
+        //GameObject bullet = Instantiate(bulletScattingPrefab, position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("ScatteringBullet",bulletScattingPrefab,position,Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
         CauseDamage cd = bullet.GetComponent<CauseDamage>();
@@ -126,7 +127,8 @@ public class BulletSpawner : MonoBehaviour
 
     void SpawnCastBullet(Vector2 position, Vector2 direction)
     {
-        GameObject bullet = Instantiate(bulletCastPrefab, position, Quaternion.identity);
+        //GameObject bullet = Instantiate(bulletCastPrefab, position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("CastBullet", bulletCastPrefab, position, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
         CauseDamage cd = bullet.GetComponent<CauseDamage>();
@@ -173,7 +175,8 @@ public class BulletSpawner : MonoBehaviour
 
     void SpawnTracezseBullet(Vector2 position, Vector2 direction)
     {
-        GameObject bullet = Instantiate(bulletTracezsePrefab, position, Quaternion.identity);
+        //GameObject bullet = Instantiate(bulletTracezsePrefab, position, Quaternion.identity);
+        GameObject bullet = ObjectPool.Instance.CreateObject("TracezseBullet", bulletTracezsePrefab, position, Quaternion.identity);
         bullet.GetComponent<TracezseSelfControl>().bulletSpeed = bulletSpeed;
         bullet.GetComponent<TracezseSelfControl>().startControl = 0.5f;
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

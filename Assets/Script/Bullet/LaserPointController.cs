@@ -15,13 +15,30 @@ public class LaserPointController : MonoBehaviour
     public float laserLength;
     public bool isFixedAngleLaser; // 是否是固定角度激光
     public Vector2 dir;
-
+    public Vector3 OriginPointScale;
+    public Vector3 OriginBlueLaserScale;
+    private void Awake()
+    {
+        OriginPointScale = transform.localScale;
+        OriginBlueLaserScale = blueLaser.localScale;
+    }
     private void Start()
+    {
+        //// 开始移动到目标位置
+        //StartCoroutine(MoveToTarget());
+    }
+    private void OnEnable()
     {
         // 开始移动到目标位置
         StartCoroutine(MoveToTarget());
     }
-
+    private void OnDisable()
+    {
+        redLaser.gameObject.SetActive(false);
+        blueLaser.gameObject.SetActive(false);
+        blueLaser.localScale = OriginBlueLaserScale;
+        transform.localScale = OriginPointScale;
+    }
     private IEnumerator MoveToTarget()
     {
         Vector3 startPosition = transform.position;
@@ -106,6 +123,10 @@ public class LaserPointController : MonoBehaviour
         }
 
         blueLaser.localScale = targetScale;
-        Destroy(gameObject); // 销毁 LaserPoint 对象
+        //Destroy(gameObject); // 销毁 LaserPoint 对象
+        ObjectPool.Instance.CollectObject(gameObject);
+        blueLaser.gameObject.SetActive(false);
+        blueLaser.localScale = OriginBlueLaserScale;
+        transform.localScale = OriginPointScale;
     }
 }

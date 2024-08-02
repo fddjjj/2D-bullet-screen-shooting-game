@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4256697055361781354}
   - component: {fileID: 8134239466695909830}
   - component: {fileID: 539154792672219638}
-  - component: {fileID: 925010675084188995}
   - component: {fileID: 8273840022638599497}
-  - component: {fileID: 5288645016219502065}
+  - component: {fileID: 8239348773931380532}
+  - component: {fileID: 1017189689725266539}
   m_Layer: 0
   m_Name: Tracezse Bullet
   m_TagString: Untagged
@@ -161,18 +161,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &925010675084188995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2825084149268479143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33190d6edce22c44eaa6fc701e4200b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8273840022638599497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 0
   startControl: 0
---- !u!114 &5288645016219502065
+--- !u!114 &8239348773931380532
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,8 +184,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2825084149268479143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785565b8a9c61394aa266634227c4c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bb64da110f78e34ea5a58815a83921d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
   type: 1
+--- !u!114 &1017189689725266539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2825084149268479143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081c7bba6a8f13a47bdbd1abb8207d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
