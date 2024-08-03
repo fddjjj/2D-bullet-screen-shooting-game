@@ -175,7 +175,7 @@ public class CharacterControl : MonoBehaviour
             return;
         Vector3 slideDir = transform.localScale;
         animator.SetTrigger("Slide");
-        //TODO:添加无敌
+        PlayerStateManager.Instance.isInvincible = true;
         isSlide = true;
         StartCoroutine("WhileSlide");
     }
@@ -192,9 +192,11 @@ public class CharacterControl : MonoBehaviour
     private void Fly(InputAction.CallbackContext context)
     {
         //TODO:添加飞行过程中，取消和子弹的碰撞
+
         //FIXME:在射击过程中飞行时，暂停射击
         if (isOnGround)
             return;
+        PlayerStateManager.Instance.isInvincible =true;
         if (currentFlyCount > 0)
             currentFlyCount--;
         else
@@ -223,6 +225,7 @@ public class CharacterControl : MonoBehaviour
         playerImage.SetActive(true);
         flyPoint.SetActive(false);
         rb.gravityScale = playerOriginalGravityScale;
+        PlayerStateManager.Instance.isInvincible=false;
     }
     private void Shoot(InputAction.CallbackContext context)
     {
