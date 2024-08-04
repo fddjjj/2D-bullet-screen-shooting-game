@@ -35,12 +35,15 @@ public class CharacterControl : MonoBehaviour
     public float flyCount;//角色飞行限制次数
     public float currentFlyCount;
     public float flySpeed;//飞行速度
+    public float sliderPowerCost;
+    public float flyPowerCost;
     [Header("角色状态")]
     public bool isOnGround;//检测角色是否处于地面上
     public bool isSlide;//检测角色是否正在滑行
     public bool isShooting;//是否正在射击
     public bool isFlyying;//是否在飞行
     public AttackTypes currentAttackType;//当前射击方式
+
     private void Awake()
     {
         //组件获取
@@ -173,10 +176,14 @@ public class CharacterControl : MonoBehaviour
         //TODO:添加滚动途中暂停射击
         if (!isOnGround)
             return;
+        if (PlayerStateManager.Instance.playerPower < sliderPowerCost)
+            return;
         Vector3 slideDir = transform.localScale;
         animator.SetTrigger("Slide");
         PlayerStateManager.Instance.isInvincible = true;
         isSlide = true;
+        PlayerStateManager.Instance.isRecoverPower = false;
+        PlayerStateManager.Instance.playerPower -= sliderPowerCost;
         StartCoroutine("WhileSlide");
     }
     IEnumerator WhileSlide()
@@ -196,15 +203,16 @@ public class CharacterControl : MonoBehaviour
         //FIXME:在射击过程中飞行时，暂停射击
         if (isOnGround)
             return;
-        PlayerStateManager.Instance.isInvincible =true;
         if (currentFlyCount > 0)
             currentFlyCount--;
         else
-            return;
+            return; 
+        PlayerStateManager.Instance.isInvincible =true;
         isFlyying = true;
         playerImage.SetActive(false);
         flyPoint.SetActive(true);
         rb.gravityScale = playerFlyGravityScale;
+        PlayerStateManager.Instance.isRecoverPower=false;
         StartCoroutine("FlyMove");
     }
 
@@ -214,6 +222,16 @@ public class CharacterControl : MonoBehaviour
         while (isFlyying)
         {
             rb.velocity = new Vector2(moveDirection.x * flySpeed,moveDirection.y * flySpeed);
+            PlayerStateManager.Instance.playerPower -= flyPowerCost;
+            if(PlayerStateManager.Instance.playerPower < flyPowerCost)
+            {
+                isFlyying=false;
+                playerImage.SetActive(true);
+                flyPoint.SetActive(false);
+                rb.gravityScale = playerOriginalGravityScale;
+                PlayerStateManager.Instance.isInvincible=false;
+                PlayerStateManager.Instance.isRecoverPower = true;
+            }
             yield return null;
         }
         yield break;
@@ -226,6 +244,8 @@ public class CharacterControl : MonoBehaviour
         flyPoint.SetActive(false);
         rb.gravityScale = playerOriginalGravityScale;
         PlayerStateManager.Instance.isInvincible=false;
+        PlayerStateManager.Instance.isRecoverPower = true;
+
     }
     private void Shoot(InputAction.CallbackContext context)
     {

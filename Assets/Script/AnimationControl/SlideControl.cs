@@ -21,6 +21,7 @@ public class SlideControl : StateMachineBehaviour
     {
         animator.GetComponent<CharacterControl>().isSlide = false;
         PlayerStateManager.Instance.isInvincible = false;
+        PlayerStateManager.Instance.isRecoverPower = true;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
