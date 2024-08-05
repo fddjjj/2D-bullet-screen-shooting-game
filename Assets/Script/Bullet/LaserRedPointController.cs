@@ -16,7 +16,12 @@ public class LaserRedPointController : MonoBehaviour
     public bool isFixedAngleLaser; // 是否是固定角度激光
     public Vector2 dir;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    // 开始移动到目标位置
+    //    StartCoroutine(MoveToTarget());
+    //}
+    private void OnEnable()
     {
         // 开始移动到目标位置
         StartCoroutine(MoveToTarget());

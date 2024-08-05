@@ -76,6 +76,7 @@ public class FirstStageSkill : MonoBehaviour
     public void OnEnter()
     {
         currentHealth = Maxhealth;
+        //selfEnemyStageControl.currentStageEnemyMaxHealth = Maxhealth;
         stageLastTime = 40;
         StartCoroutine(Move());
     }

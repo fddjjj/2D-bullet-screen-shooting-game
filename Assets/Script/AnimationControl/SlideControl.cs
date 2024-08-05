@@ -20,7 +20,7 @@ public class SlideControl : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.GetComponent<CharacterControl>().isSlide = false;
-        PlayerStateManager.Instance.isInvincible = false;
+        //PlayerStateManager.Instance.isInvincible = false;
         PlayerStateManager.Instance.isRecoverPower = true;
     }
 

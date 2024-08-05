@@ -184,6 +184,7 @@ public class CharacterControl : MonoBehaviour
         isSlide = true;
         PlayerStateManager.Instance.isRecoverPower = false;
         PlayerStateManager.Instance.playerPower -= sliderPowerCost;
+        PlayerStateManager.Instance.ResetInvincibleTimer(2f);
         StartCoroutine("WhileSlide");
     }
     IEnumerator WhileSlide()
@@ -208,6 +209,7 @@ public class CharacterControl : MonoBehaviour
         else
             return; 
         PlayerStateManager.Instance.isInvincible =true;
+        Debug.Log("Invincible");
         isFlyying = true;
         playerImage.SetActive(false);
         flyPoint.SetActive(true);
@@ -225,6 +227,7 @@ public class CharacterControl : MonoBehaviour
             PlayerStateManager.Instance.playerPower -= flyPowerCost;
             if(PlayerStateManager.Instance.playerPower < flyPowerCost)
             {
+                Debug.Log("no power");
                 isFlyying=false;
                 playerImage.SetActive(true);
                 flyPoint.SetActive(false);
@@ -238,12 +241,13 @@ public class CharacterControl : MonoBehaviour
     }
     private void EndFly(InputAction.CallbackContext context)
     {
+        if(isFlyying)
+            PlayerStateManager.Instance.isInvincible=false;
         isFlyying = false;
         StopCoroutine("FlyMove");
         playerImage.SetActive(true);
         flyPoint.SetActive(false);
         rb.gravityScale = playerOriginalGravityScale;
-        PlayerStateManager.Instance.isInvincible=false;
         PlayerStateManager.Instance.isRecoverPower = true;
 
     }

@@ -13,6 +13,8 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     public float InvincibleTime;
     public bool isRecoverPower = true;
     public float powerRecoverSpeed;
+    public float InvincibleTimer = 0f;
+    public bool needRefresh = false;
     private void OnEnable()
     {
         playHealth = playerMaxHealth;
@@ -20,6 +22,9 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     }
     private void Update()
     {
+        InvincibleTimer -= Time.deltaTime;
+        if (InvincibleTimer < 0f && needRefresh)
+            isInvincible = false;
         if (isRecoverPower)
         {
             if(playerPower < playerMaxPower)
@@ -33,7 +38,7 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
         if (!isInvincible)
         {
             isInvincible = true;
-            StartCoroutine(StopInvincible());
+            ResetInvincibleTimer(InvincibleTime);
             playHealth --;
             HealthCanvasControl.Instance.RefreshHealth();
             //TODO:动画叠加虚化效果
@@ -44,11 +49,10 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
             }
         }
     }
-
-    IEnumerator StopInvincible()
+    public void ResetInvincibleTimer(float t)
     {
-        yield return new WaitForSeconds(InvincibleTime);
-        isInvincible = false;
+        needRefresh = true;
+        InvincibleTimer = t;
     }
 }
 

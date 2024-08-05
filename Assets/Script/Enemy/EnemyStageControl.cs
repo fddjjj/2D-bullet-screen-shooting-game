@@ -5,6 +5,8 @@ using UnityEngine;
 public enum Stage { FirstStage, SecondStage, ThirdStage, FourthStage, FifthStage, SixthStage, SeventhStage }
 public class EnemyStageControl : MonoBehaviour
 {
+    public int totalStage;
+    public float currentStageEnemyMaxHealth;
     public float EnemyHealth;
     public Stage currentStage;
     public FirstStageSkill firstStageSkill;
@@ -33,22 +35,37 @@ public class EnemyStageControl : MonoBehaviour
             {
                 case Stage.FirstStage:
                     EnemyHealth = firstStageSkill.Maxhealth;
+                    currentStageEnemyMaxHealth = EnemyHealth;
+                    EnemyHealthCanvasControl.Instance.ChangeHealthSlider(EnemyHealth/currentStageEnemyMaxHealth);
+                    EnemyHealthCanvasControl.Instance.ChangeEnemyStage(1, totalStage, "Skill1");
                     firstStageSkill.OnEnter();
                     break;
                 case Stage.SecondStage:
                     EnemyHealth = secondStageSkill.Maxhealth;
+                    currentStageEnemyMaxHealth = EnemyHealth;
+                    EnemyHealthCanvasControl.Instance.ChangeHealthSlider(EnemyHealth/currentStageEnemyMaxHealth);
+                    EnemyHealthCanvasControl.Instance.ChangeEnemyStage(2, totalStage, "Skill2");
                     secondStageSkill.OnEnter();
                     break;
                 case Stage.ThirdStage:
                     EnemyHealth = thirdStageSkill.Maxhealth;
+                    currentStageEnemyMaxHealth = EnemyHealth;
+                    EnemyHealthCanvasControl.Instance.ChangeHealthSlider(EnemyHealth/currentStageEnemyMaxHealth);
+                    EnemyHealthCanvasControl.Instance.ChangeEnemyStage(3, totalStage, "Skill3");
                     thirdStageSkill.OnEnter();
                     break;
                 case Stage.FourthStage:
                     EnemyHealth = fourthStageSkill.Maxhealth;
+                    currentStageEnemyMaxHealth = EnemyHealth;
+                    EnemyHealthCanvasControl.Instance.ChangeHealthSlider(EnemyHealth/currentStageEnemyMaxHealth);
+                    EnemyHealthCanvasControl.Instance.ChangeEnemyStage(4, totalStage, "Skill4");
                     fourthStageSkill.OnEnter();
                     break;
                 case Stage.FifthStage:
                     EnemyHealth = fifthStageSkill.Maxhealth;
+                    currentStageEnemyMaxHealth = EnemyHealth;
+                    EnemyHealthCanvasControl.Instance.ChangeHealthSlider(EnemyHealth/currentStageEnemyMaxHealth);
+                    EnemyHealthCanvasControl.Instance.ChangeEnemyStage(5, totalStage, "Skill5");
                     fifthStageSkill.OnEnter();
                     break;
                 case Stage.SixthStage:
@@ -78,6 +95,7 @@ public class EnemyStageControl : MonoBehaviour
             isInvincible = true;
             StartCoroutine(StopInvincible());
             EnemyHealth -= damage;
+            EnemyHealthCanvasControl.Instance.ChangeHealthSlider(EnemyHealth/currentStageEnemyMaxHealth);
             Debug.Log("Hurt Enemy");
             //TODO:动画叠加虚化效果
         }

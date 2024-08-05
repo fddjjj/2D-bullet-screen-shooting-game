@@ -82,10 +82,10 @@ public class ThirdStageSkill : MonoBehaviour
                 }
                 else
                 {
-                    if (isNeedMove)
+                    if (isNeedMove && !isStart)
                     {
                         rb.velocity = Vector3.zero;
-                        //isStart = true;
+                        isStart = true;
                         StartCoroutine(Move());
                     }
                     if (!isStart && ! isNeedMove)
@@ -163,7 +163,7 @@ public class ThirdStageSkill : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         InstantiateLaserPoint(movePosition1, movePosition2, 180);
         InstantiateLaserPoint(movePosition2, movePosition1, 180);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         isFollow =false;
         isStart = false;
         isNeedMove = true;
@@ -174,10 +174,12 @@ public class ThirdStageSkill : MonoBehaviour
         yield return ShootBullet();
         yield return ShootBullet();
         InstantiateLaserPoint(movePosition4,movePosition3,90);
+        Debug.Log("shoot Left point");
         yield return new WaitForSeconds(3f);
         yield return ShootBullet();
         yield return ShootBullet();
         InstantiateLaserPoint(movePosition6, movePosition5,270);
+        Debug.Log("Shoot Right Point");
         yield return new WaitForSeconds(3f);
         isStart = false;
         yield break;
@@ -241,6 +243,7 @@ public class ThirdStageSkill : MonoBehaviour
         rb.MovePosition(position1);
         isNeedMove = false;
         isEnter = false;
+        isStart = false;
         yield break;
     }
 }
