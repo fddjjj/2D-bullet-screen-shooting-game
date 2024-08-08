@@ -44,7 +44,7 @@ public class CharacterControl : MonoBehaviour
     public bool isFlyying;//是否在飞行
     public AttackTypes currentAttackType;//当前射击方式
 
-    private void Awake()
+    private  void  Awake()
     {
         //组件获取
         rb = GetComponent<Rigidbody2D>();
