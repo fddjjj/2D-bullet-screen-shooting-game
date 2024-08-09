@@ -11,5 +11,6 @@ public class AttackData_SO :ScriptableObject
     public float attackMultiply;
     public float attackAddDamage;
     public float bullerSpeed;
+    public AttackTypes attackTypes;
 
 }

@@ -17,3 +17,4 @@ MonoBehaviour:
   attackMultiply: 1.2
   attackAddDamage: 4
   bullerSpeed: 25
+  attackTypes: 1

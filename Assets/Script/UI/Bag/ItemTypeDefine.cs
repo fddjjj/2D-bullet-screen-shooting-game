@@ -10,5 +10,8 @@ public class ItemTypeDefine :ScriptableObject
     public Sprite itemImage;
     public int cost;
     public ItemType type;
-    public ItemUse itemUse;
+    public AttackData_SO attackData;
+    public string itemName;
+    [TextArea]public string functionDescribe;
+    [TextArea]public string storyDescribe;
 }

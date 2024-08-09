@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 119621024756eed42842bdaff35ae808, type: 3}
-  m_Name: CastBullet
+  m_Name: CastData
   m_EditorClassIdentifier: 
-  itemImage: {fileID: -916031595, guid: ea298d55cd181fe4cb9cc6ffc84734d5, type: 3}
+  itemImage: {fileID: 120811416592955612, guid: 6549b0afeb0e6d84d8c4f70c48b74d2c, type: 3}
   cost: 0
   type: 0
-  itemUse: {fileID: 0}
+  attackData: {fileID: 11400000, guid: b9e3f0e2ae825184f8449e945117032d, type: 2}
+  itemName: "\u96EA\u7403"
+  functionDescribe: "\u53D1\u5C04\u4E00\u4E2A\u96EA\u7403"
+  storyDescribe: "\u795E\u8BF4\u8981\u6709\u96EA\u7403"

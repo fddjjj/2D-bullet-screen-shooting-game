@@ -8,6 +8,7 @@ public class BagCanvasControl :SingleTon<BagCanvasControl>
     public TextMeshProUGUI toolName;
     public TextMeshProUGUI functionDescribe;
     public TextMeshProUGUI storyDescribe;
+    public CharacterControl characterControl;
 
     public void RefreshDescribe(string name,string function,string story)
     {
