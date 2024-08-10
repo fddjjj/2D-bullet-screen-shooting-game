@@ -5,11 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum GridType {Equiped,Unequiped}
-public class GridControl : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+public class GridControl : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Image chooseImage;
     public ItemControl itemControl;
     public GridType gridType;
+    public GameObject itemPrefab;
+    public GameObject tmpItemDragObject;
     private void Awake()
     {
         //itemControl = GetComponentInChildren<ItemControl>();
@@ -41,5 +43,64 @@ public class GridControl : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
     {
         chooseImage?.gameObject.SetActive(false);
         BagCanvasControl.Instance.ClearDescribe();
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (itemControl.itemData != null)
+        {
+            tmpItemDragObject = Instantiate(itemPrefab,BagCanvasControl.Instance.dragCanvas.transform);
+            ItemControl tmpItemControl = tmpItemDragObject.GetComponent<ItemControl>();
+            tmpItemControl.itemData = itemControl.itemData;
+            BagCanvasControl.Instance.currentGridType = gridType;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if(tmpItemDragObject != null)
+            tmpItemDragObject.transform.position = eventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (tmpItemDragObject == null)
+            return;
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            if(BagCanvasControl.Instance.CheckInEquipedProperty(eventData.position) || BagCanvasControl.Instance.CheckInShootProperty(eventData.position)|| BagCanvasControl.Instance.CheckInSimplyProperty(eventData.position))
+            {
+                BagCanvasControl.Instance.targetGridType = eventData.pointerEnter.gameObject.GetComponent<GridControl>().gridType;
+                if(BagCanvasControl.Instance.currentGridType == GridType.Unequiped && BagCanvasControl.Instance.targetGridType == GridType.Unequiped)
+                {
+                    Destroy(tmpItemDragObject);
+                }else if (BagCanvasControl.Instance.currentGridType == GridType.Unequiped && BagCanvasControl.Instance.targetGridType == GridType.Equiped)
+                {
+                    ItemControl targetItemControl = eventData.pointerEnter.gameObject.GetComponent<GridControl>().itemControl;
+                    targetItemControl.itemData = tmpItemDragObject.GetComponent<ItemControl>().itemData;
+                    Destroy(tmpItemDragObject);
+                }else if(BagCanvasControl.Instance.currentGridType == GridType.Equiped && BagCanvasControl.Instance.targetGridType == GridType.Unequiped)
+                {
+                    //清除当前装备内容
+                    itemControl.itemData = null;
+                    Destroy(tmpItemDragObject);
+                }else if(BagCanvasControl.Instance.currentGridType == GridType.Equiped && BagCanvasControl.Instance.targetGridType == GridType.Equiped)
+                {
+                    ItemControl targetItemControl = eventData.pointerEnter.gameObject.GetComponent<GridControl>().itemControl;
+                    ItemTypeDefine tmpItemData = targetItemControl.itemData;
+                    targetItemControl.itemData = tmpItemDragObject.GetComponent<ItemControl>().itemData;
+                    itemControl.itemData = tmpItemData;
+                    Destroy(tmpItemDragObject);
+                }
+            }
+            else
+            {
+                Destroy(tmpItemDragObject);
+            }
+        }
+        else
+        {
+            Destroy(tmpItemDragObject);
+        }
     }
 }

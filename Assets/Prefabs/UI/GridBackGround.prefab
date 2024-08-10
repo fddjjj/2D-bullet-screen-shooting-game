@@ -93,6 +93,7 @@ MonoBehaviour:
   chooseImage: {fileID: 5324651100146186447}
   itemControl: {fileID: 5655043649955046063}
   gridType: 1
+  itemPrefab: {fileID: 3601831128207775134, guid: fe627ef0794e27b4285e4dde3a11bc60, type: 3}
 --- !u!1 &8990883472216763738
 GameObject:
   m_ObjectHideFlags: 0
