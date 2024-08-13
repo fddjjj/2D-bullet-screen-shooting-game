@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119621024756eed42842bdaff35ae808, type: 3}
+  m_Name: ImproveDamageData
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 6744161824415505956, guid: 6549b0afeb0e6d84d8c4f70c48b74d2c, type: 3}
+  cost: 0
+  type: 1
+  attackData: {fileID: 0}
+  useData: {fileID: 11400000, guid: 17525490801917844a34446371468aa8, type: 2}
+  itemName: "\u529B\u91CF\u836F\u6C34"
+  functionDescribe: "\u964D\u4F4E\u4E00\u70B9\u751F\u547D\u4E0A\u9650\uFF0C\u63D0\u9AD810\u653B\u51FB"
+  storyDescribe: "\u7528\u9C9C\u8840\u6362\u53D6\u529B\u91CF\u5427\uFF01"

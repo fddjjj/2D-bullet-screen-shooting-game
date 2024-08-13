@@ -65,11 +65,28 @@ public class CharacterControl : MonoBehaviour
         //…‰ª˜
         inputControl.Player.Shooting.performed += Shoot;
         inputControl.Player.Shooting.canceled += EndShoot;
+
+        inputControl.UI.Stop.started += ChangeStop;
         //≥ı º÷µ∏≥”Ë
         playerOriginalGravityScale = rb.gravityScale;
     }
 
-
+    private void ChangeStop(InputAction.CallbackContext context)
+    {
+        if (PlayerStateManager.Instance.isstop)
+        {
+            inputControl.Player.Enable();
+            BagCanvasControl.Instance.gameObject.SetActive(false);
+            Time.timeScale = 1f;
+            PlayerStateManager.Instance.isstop = false;
+        }else
+        {
+            inputControl.Player.Disable();
+            PlayerStateManager.Instance.isstop =true;
+            BagCanvasControl.Instance.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
 
     private void Update()
     {

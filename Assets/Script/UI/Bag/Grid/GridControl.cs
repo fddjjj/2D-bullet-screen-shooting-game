@@ -78,10 +78,27 @@ public class GridControl : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
                 {
                     ItemControl targetItemControl = eventData.pointerEnter.gameObject.GetComponent<GridControl>().itemControl;
                     targetItemControl.itemData = tmpItemDragObject.GetComponent<ItemControl>().itemData;
+                    ItemTypeDefine  itemData = targetItemControl.itemData;
+                    if (itemData.type == ItemType.Weapon)
+                    {
+                        BagCanvasControl.Instance.characterControl.currentAttackType = itemData.attackData.attackTypes;
+                    }else if (itemData.type == ItemType.Rise)
+                    {
+                        itemData.useData.Use(itemData.useData);
+                    }
                     Destroy(tmpItemDragObject);
                 }else if(BagCanvasControl.Instance.currentGridType == GridType.Equiped && BagCanvasControl.Instance.targetGridType == GridType.Unequiped)
                 {
+                    ItemTypeDefine itemData = itemControl.itemData;
                     //清除当前装备内容
+                    if (itemData.type == ItemType.Weapon)
+                    {
+                        //BagCanvasControl.Instance.characterControl.currentAttackType = itemData.attackData.attackTypes;
+                    }
+                    else if (itemData.type == ItemType.Rise)
+                    {
+                        itemData.useData.UnUsed(itemData.useData);
+                    }
                     itemControl.itemData = null;
                     Destroy(tmpItemDragObject);
                 }else if(BagCanvasControl.Instance.currentGridType == GridType.Equiped && BagCanvasControl.Instance.targetGridType == GridType.Equiped)

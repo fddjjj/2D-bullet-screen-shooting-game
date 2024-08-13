@@ -14,6 +14,7 @@ public class BulletSpawner : MonoBehaviour
     public CharacterControl playerState;
     public float attackCoolTime;
     public float attackDeltaTime;
+    public float equipmentDamage;
 
     [Header("子弹控制参数")]
     public AttackData_SO Scattering;
@@ -59,7 +60,7 @@ public class BulletSpawner : MonoBehaviour
                         laserObject = Instantiate(bulletLaserPrefab, shootPoint.position, Quaternion.identity);
                     laserController = laserObject.GetComponent<LaserSelfController>();
                     CauseDamage cd = laserObject.GetComponent<CauseDamage>();
-                    cd.damage = Laser.attackDamage;
+                    cd.damage = Laser.attackDamage + equipmentDamage;
                     FireLaserBullets();
                     break;
                 case AttackTypes.tracezse:
@@ -111,7 +112,7 @@ public class BulletSpawner : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
         CauseDamage cd = bullet.GetComponent<CauseDamage>();
-        cd.damage = Scattering.attackDamage;
+        cd.damage = Scattering.attackDamage + equipmentDamage;
     }
     void FireCastBullets()
     {
@@ -132,7 +133,7 @@ public class BulletSpawner : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
         CauseDamage cd = bullet.GetComponent<CauseDamage>();
-        cd.damage = Cast.attackDamage;
+        cd.damage = Cast.attackDamage+equipmentDamage;
     }
 
     void FireLaserBullets()
@@ -182,6 +183,6 @@ public class BulletSpawner : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed * 2;
         CauseDamage cd = bullet.GetComponent<CauseDamage>();
-        cd.damage = Tracezse.attackDamage;
+        cd.damage = Tracezse.attackDamage + equipmentDamage;
     }
 }

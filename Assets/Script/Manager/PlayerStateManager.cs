@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerStateManager : SingleTon<PlayerStateManager>
 {
+    [Header("组件")]
+    public Transform playerTransform;
+    public BulletSpawner playerBulletSpawner;
     public float playHealth;
     public float playerMaxHealth;
-    public Transform playerTransform;
+    [Header("参数")]
     public float playerPower;
     public float playerMaxPower;
     public bool isInvincible = false;
@@ -15,6 +18,7 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     public float powerRecoverSpeed;
     public float InvincibleTimer = 0f;
     public bool needRefresh = false;
+    public bool isstop = false;
     private void OnEnable()
     {
         playHealth = playerMaxHealth;

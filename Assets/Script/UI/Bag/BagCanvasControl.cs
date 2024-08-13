@@ -21,6 +21,7 @@ public class BagCanvasControl :SingleTon<BagCanvasControl>
     private void OnEnable()
     {
         StartCoroutine(refresh());
+        gameObject.SetActive(PlayerStateManager.Instance.isstop);
     }
     public void RefreshDescribe(string name,string function,string story)
     {

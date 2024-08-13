@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119621024756eed42842bdaff35ae808, type: 3}
+  m_Name: LaserData
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 2378997230252571018, guid: 6549b0afeb0e6d84d8c4f70c48b74d2c, type: 3}
+  cost: 0
+  type: 0
+  attackData: {fileID: 11400000, guid: 371030961d36dea4784f6f539306eba1, type: 2}
+  useData: {fileID: 0}
+  itemName: "\u6FC0\u5149\uFF01"
+  functionDescribe: "\u653B\u51FB\u65B9\u5F0F\u6539\u4E3A\u53D1\u5C04\u6FC0\u5149"
+  storyDescribe: "\u6211\u7684\u6FC0\u6FC0\u4F1A\u53D1\u5149\u54E6"

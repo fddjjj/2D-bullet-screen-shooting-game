@@ -11,6 +11,7 @@ public class ItemTypeDefine :ScriptableObject
     public int cost;
     public ItemType type;
     public AttackData_SO attackData;
+    public UseItemData useData;
     public string itemName;
     [TextArea]public string functionDescribe;
     [TextArea]public string storyDescribe;

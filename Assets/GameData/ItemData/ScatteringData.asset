@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119621024756eed42842bdaff35ae808, type: 3}
+  m_Name: ScatteringData
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: -693481454, guid: 137a4eb7be9f2264b94945af68989053, type: 3}
+  cost: 0
+  type: 0
+  attackData: {fileID: 11400000, guid: 134ee8ebf25985d4381718797d88a57f, type: 2}
+  useData: {fileID: 0}
+  itemName: "\u6563\u5C04\u5B50\u5F39"
+  functionDescribe: "\u53D1\u5C043\u679A\u5B50\u5F39"
+  storyDescribe: "\u6563\u88C5\u7684\u66F4\u4F18\u60E0\u54DF"
