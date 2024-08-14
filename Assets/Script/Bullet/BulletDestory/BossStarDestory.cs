@@ -7,7 +7,8 @@ public class BossStarDestory : BulletDestory
     public override void OnBecameInvisible()
     {
         base.OnBecameInvisible();
-        DestorySelf();
+        if(gameObject.activeSelf)
+            DestorySelf();
     }
     public void DestorySelf()
     {

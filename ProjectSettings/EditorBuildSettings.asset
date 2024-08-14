@@ -6,7 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: 6ede21915ae23cc43ae92d43d2f0d687
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Train.unity
+    guid: a2188a3a7ddab30499cb880375b5c1b9
+  - enabled: 1
+    path: Assets/Scenes/Forest.unity
+    guid: a22ff83d23e104349be31935d5aa6c0a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7e38b5f998a176a41b5f692eb9c9a28e, type: 2}

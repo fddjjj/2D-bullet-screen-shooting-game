@@ -1414,6 +1414,54 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &543617974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 543617976}
+  - component: {fileID: 543617975}
+  m_Layer: 0
+  m_Name: SelfSceneManager
+  m_TagString: SelfSceneManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &543617975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543617974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7f36ee4c21cea439bdea2a44181113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneLoaded: {fileID: 11400000, guid: b976d9ff67de450418884bc76714d832, type: 2}
+  bound1: {fileID: 616538212}
+  bound2: {fileID: 0}
+  CameraDistance: 6
+--- !u!4 &543617976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543617974}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &616538212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,10 +1523,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 21.90175, y: -3.4236026}
-      - {x: -4.0480847, y: -3.4237394}
-      - {x: -4.040498, y: -12.042197}
-      - {x: 21.890375, y: -11.919021}
+    - - {x: 23, y: 3}
+      - {x: -5, y: 3}
+      - {x: -5, y: -13}
+      - {x: 23, y: -13}
   m_UseDelaunayMesh: 0
 --- !u!4 &616538214
 Transform:
@@ -1612,6 +1660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ePress: {fileID: 1282413192}
+  isCanTouch: 0
 --- !u!61 &1541951370
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1730,3 +1779,4 @@ SceneRoots:
   - {fileID: 616538214}
   - {fileID: 288247125}
   - {fileID: 1541951373}
+  - {fileID: 543617976}

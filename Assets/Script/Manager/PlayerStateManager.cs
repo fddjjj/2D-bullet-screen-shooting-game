@@ -9,6 +9,7 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     public BulletSpawner playerBulletSpawner;
     public float playHealth;
     public float playerMaxHealth;
+    public GameObject player;
     [Header("²ÎÊý")]
     public float playerPower;
     public float playerMaxPower;
