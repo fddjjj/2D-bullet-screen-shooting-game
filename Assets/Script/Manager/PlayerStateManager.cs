@@ -20,6 +20,7 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     public float InvincibleTimer = 0f;
     public bool needRefresh = false;
     public bool isstop = false;
+    public bool isCanTouch = false;
     private void OnEnable()
     {
         playHealth = playerMaxHealth;

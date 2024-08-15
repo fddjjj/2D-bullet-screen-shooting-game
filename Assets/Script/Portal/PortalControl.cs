@@ -7,34 +7,22 @@ using UnityEngine.InputSystem;
 public class PortalControl : MonoBehaviour
 {
     public GameObject ePress;
-    public bool isCanTouch = false;
-    public PlayerInputControl inputControl;
-    private void Awake()
-    {
-        inputControl = new PlayerInputControl();
-        inputControl.UI.E.started += Trans;
-    }
 
-    private void Trans(InputAction.CallbackContext context)
-    {
-        if (isCanTouch)
-        {
-            //UI Open
-        }
-    }
-
-    private void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ePress.SetActive(true);
-        isCanTouch = true;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            ePress.SetActive(true);
+            PlayerStateManager.Instance.isCanTouch = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        ePress.SetActive(false);
-        isCanTouch = false;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            ePress.SetActive(false);
+            PlayerStateManager.Instance.isCanTouch = false;
+        }
+
     }
 }

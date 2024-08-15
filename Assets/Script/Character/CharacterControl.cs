@@ -67,23 +67,47 @@ public class CharacterControl : MonoBehaviour
         inputControl.Player.Shooting.canceled += EndShoot;
 
         inputControl.UI.Stop.started += ChangeStop;
+        inputControl.UI.E.started += Trans;
         //≥ı º÷µ∏≥”Ë
         playerOriginalGravityScale = rb.gravityScale;
     }
-
+    private void Trans(InputAction.CallbackContext context)
+    {
+        //Debug.Log("E Press");
+        if (PlayerStateManager.Instance.isCanTouch)
+        {
+            //Debug.Log("Press E");
+            if (PlayerStateManager.Instance.isstop)
+            {
+                inputControl.Player.Enable();
+                TransCanvasControl.Instance.gameObject.SetActive(false);
+                Time.timeScale = 1f;
+                PlayerStateManager.Instance.isstop = false;
+            }
+            else
+            {
+                inputControl.Player.Disable();
+                PlayerStateManager.Instance.isstop =true;
+                TransCanvasControl.Instance.gameObject.SetActive(true);
+                Time.timeScale = 0f;
+            }
+        }
+    }
     private void ChangeStop(InputAction.CallbackContext context)
     {
         if (PlayerStateManager.Instance.isstop)
         {
             inputControl.Player.Enable();
-            BagCanvasControl.Instance.gameObject.SetActive(false);
+            //BagCanvasControl.Instance.gameObject.SetActive(false);
+            StopCanvasControl.Instance.gameObject.SetActive(false);
             Time.timeScale = 1f;
             PlayerStateManager.Instance.isstop = false;
         }else
         {
             inputControl.Player.Disable();
             PlayerStateManager.Instance.isstop =true;
-            BagCanvasControl.Instance.gameObject.SetActive(true);
+            //BagCanvasControl.Instance.gameObject.SetActive(true);
+            StopCanvasControl.Instance.gameObject.SetActive(true);
             Time.timeScale = 0f;
         }
     }
@@ -97,7 +121,10 @@ public class CharacterControl : MonoBehaviour
         PlayerStateCheck();
         ArmPointAtShootPoint();
 
-
+        if (!PlayerStateManager.Instance.isstop)
+        {
+            inputControl.Player.Enable();
+        }
         //debug”√
         //playerGravityScale = rb.gravityScale;
         

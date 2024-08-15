@@ -180,7 +180,7 @@ MonoBehaviour:
   m_text: "\u6D4B\u8BD5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 04f7832d037728e479e5da337223eec8, type: 2}
-  m_sharedMaterial: {fileID: 4815383215026927234, guid: 04f7832d037728e479e5da337223eec8, type: 2}
+  m_sharedMaterial: {fileID: -2253068369480767273, guid: 04f7832d037728e479e5da337223eec8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

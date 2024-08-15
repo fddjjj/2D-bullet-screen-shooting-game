@@ -18,8 +18,8 @@ public class MainSceneManager : SingleTon<MainSceneManager>
     {
         base.Awake();
         currentSceneName = null;
-        OwnLoadNewScene("Train", playerStayPosition,2);
-        //NeedLoadScene.RaiseAction("Train", playerStayPosition, 2);
+        OwnLoadNewScene("Train", playerStayPosition);
+        //NeedLoadScene.RaiseAction("Train", playerStayPosition);
     }
 
     private void OnEnable()
@@ -32,11 +32,11 @@ public class MainSceneManager : SingleTon<MainSceneManager>
         NeedLoadScene.Action -= LoadNewScene;
     }
 
-    private void LoadNewScene(string sceneName, Vector3 playerPosition, int index)
+    private void LoadNewScene(string sceneName, Vector3 playerPosition)
     {
-        OwnLoadNewScene(sceneName, playerPosition,index);
+        OwnLoadNewScene(sceneName, playerPosition);
     }
-    public void OwnLoadNewScene(string SceneName,Vector3 position, int index)
+    public void OwnLoadNewScene(string SceneName,Vector3 position)
     {
         //AsyncOperation isEndUnload;
         //SceneManager.LoadSceneAsync(SceneName);
@@ -49,7 +49,7 @@ public class MainSceneManager : SingleTon<MainSceneManager>
         if(currentSceneName != null)
         {
             Debug.Log("Start UnLoad");
-            StartCoroutine(UnLoadCurrentScene(SceneName,index));
+            StartCoroutine(UnLoadCurrentScene(SceneName));
 
         }
         else
@@ -60,7 +60,7 @@ public class MainSceneManager : SingleTon<MainSceneManager>
 
     }
 
-    IEnumerator UnLoadCurrentScene(string SceneName,int index)
+    IEnumerator UnLoadCurrentScene(string SceneName)
     {
         //TODO:½¥Èë½¥³ö
         yield return SceneManager.UnloadSceneAsync(currentSceneName);

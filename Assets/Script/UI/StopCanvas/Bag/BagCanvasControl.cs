@@ -18,10 +18,15 @@ public class BagCanvasControl :SingleTon<BagCanvasControl>
     public TotalGridControl simplyPropertyTotalGrid;
     public GameObject unequipedLayout;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        gameObject.SetActive(false);
+    }
     private void OnEnable()
     {
-        StartCoroutine(refresh());
-        gameObject.SetActive(PlayerStateManager.Instance.isstop);
+        //StartCoroutine(refresh());
+        RefreshUnequipedLayoutGroup();
     }
     public void RefreshDescribe(string name,string function,string story)
     {
@@ -73,8 +78,9 @@ public class BagCanvasControl :SingleTon<BagCanvasControl>
     }
     IEnumerator refresh()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         RefreshUnequipedLayoutGroup();
+        //Debug.Log("Refresh");
         yield break;
     }
     public void RefreshUnequipedLayoutGroup()

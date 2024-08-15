@@ -6,10 +6,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName ="SceneLoadData_SO")]
 public class SceneLoadData_SO : ScriptableObject
 {
-    public UnityAction<string, Vector3,int> Action;
-    public void RaiseAction(string sceneName,Vector3 playerStayPosition,int index)
+    public UnityAction<string, Vector3> Action;
+    public void RaiseAction(string sceneName,Vector3 playerStayPosition)
     {
-        Action?.Invoke(sceneName, playerStayPosition,index);
+        Action?.Invoke(sceneName, playerStayPosition);
     }
 
 }
