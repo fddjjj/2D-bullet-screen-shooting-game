@@ -405,8 +405,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5F00\u59CB\u6E38\u620F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9d6c295bff0aaf147b51b04a730e02d1, type: 2}
-  m_sharedMaterial: {fileID: -7919996407196129717, guid: 9d6c295bff0aaf147b51b04a730e02d1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 04f7832d037728e479e5da337223eec8, type: 2}
+  m_sharedMaterial: {fileID: -2253068369480767273, guid: 04f7832d037728e479e5da337223eec8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

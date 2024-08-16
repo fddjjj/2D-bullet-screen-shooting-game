@@ -85,6 +85,7 @@ public class GridControl : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
                     }else if (itemData.type == ItemType.Rise)
                     {
                         itemData.useData.Use(itemData.useData);
+                        HealthCanvasControl.Instance.RefreshHealth();
                     }
                     Destroy(tmpItemDragObject);
                 }else if(BagCanvasControl.Instance.currentGridType == GridType.Equiped && BagCanvasControl.Instance.targetGridType == GridType.Unequiped)

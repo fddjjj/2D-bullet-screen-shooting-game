@@ -18,6 +18,7 @@ public class CharacterControl : MonoBehaviour
     public Transform bone_9;
     public Transform originalPoint;
     public GameObject shotPoint;
+    public BoxCollider2D boxCollider2D;
 
     [Header("基本参数")]
     public Vector2 moveDirection;//移动方向
@@ -37,6 +38,7 @@ public class CharacterControl : MonoBehaviour
     public float flySpeed;//飞行速度
     public float sliderPowerCost;
     public float flyPowerCost;
+    public bool isUpKeyDown = false;
     [Header("角色状态")]
     public bool isOnGround;//检测角色是否处于地面上
     public bool isSlide;//检测角色是否正在滑行
@@ -50,7 +52,7 @@ public class CharacterControl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         inputControl = new PlayerInputControl();
         animator = GetComponent<Animator>();
-
+        boxCollider2D = GetComponent<BoxCollider2D>();
 
         //动作绑定
         //跳跃和缓降
@@ -61,16 +63,21 @@ public class CharacterControl : MonoBehaviour
         inputControl.Player.Slide.started += Slide;
         inputControl.Player.Slide.performed += Fly;
         inputControl.Player.Slide.canceled += EndFly;
-
+        inputControl.Player.Up.performed += CheckUp;
+        inputControl.Player.Up.canceled += CancelUp;
         //射击
         inputControl.Player.Shooting.performed += Shoot;
         inputControl.Player.Shooting.canceled += EndShoot;
 
+        //UI
         inputControl.UI.Stop.started += ChangeStop;
         inputControl.UI.E.started += Trans;
         //初始值赋予
         playerOriginalGravityScale = rb.gravityScale;
     }
+
+
+
     private void Trans(InputAction.CallbackContext context)
     {
         //Debug.Log("E Press");
@@ -102,7 +109,7 @@ public class CharacterControl : MonoBehaviour
             StopCanvasControl.Instance.gameObject.SetActive(false);
             Time.timeScale = 1f;
             PlayerStateManager.Instance.isstop = false;
-        }else
+        }else 
         {
             inputControl.Player.Disable();
             PlayerStateManager.Instance.isstop =true;
@@ -218,17 +225,18 @@ public class CharacterControl : MonoBehaviour
     private void Slide(InputAction.CallbackContext context)
     {
         //TODO:添加滚动途中暂停射击
-        if (!isOnGround)
+        if (!isOnGround || isUpKeyDown)
             return;
         if (PlayerStateManager.Instance.playerPower < sliderPowerCost)
             return;
         Vector3 slideDir = transform.localScale;
         animator.SetTrigger("Slide");
+        boxCollider2D.enabled = false;
         PlayerStateManager.Instance.isInvincible = true;
         isSlide = true;
         PlayerStateManager.Instance.isRecoverPower = false;
         PlayerStateManager.Instance.playerPower -= sliderPowerCost;
-        PlayerStateManager.Instance.ResetInvincibleTimer(2f);
+        PlayerStateManager.Instance.ResetInvincibleTimer(1.5f);
         StartCoroutine("WhileSlide");
     }
     IEnumerator WhileSlide()
@@ -240,19 +248,29 @@ public class CharacterControl : MonoBehaviour
         }
         yield break;
     }
+    private void CancelUp(InputAction.CallbackContext context)
+    {
+        isUpKeyDown = false;
+    }
+
+    private void CheckUp(InputAction.CallbackContext context)
+    {
+        isUpKeyDown = true;
+    }
 
     private void Fly(InputAction.CallbackContext context)
     {
         //TODO:添加飞行过程中，取消和子弹的碰撞
 
         //FIXME:在射击过程中飞行时，暂停射击
-        if (isOnGround)
+        if (isOnGround && !isUpKeyDown)
             return;
         if (currentFlyCount > 0)
             currentFlyCount--;
         else
             return; 
         PlayerStateManager.Instance.isInvincible =true;
+        boxCollider2D.enabled =false;
         Debug.Log("Invincible");
         isFlyying = true;
         playerImage.SetActive(false);
@@ -278,6 +296,7 @@ public class CharacterControl : MonoBehaviour
                 rb.gravityScale = playerOriginalGravityScale;
                 PlayerStateManager.Instance.isInvincible=false;
                 PlayerStateManager.Instance.isRecoverPower = true;
+                boxCollider2D.enabled = true;
             }
             yield return null;
         }
@@ -292,6 +311,7 @@ public class CharacterControl : MonoBehaviour
         playerImage.SetActive(true);
         flyPoint.SetActive(false);
         rb.gravityScale = playerOriginalGravityScale;
+        boxCollider2D.enabled=true;
         PlayerStateManager.Instance.isRecoverPower = true;
 
     }

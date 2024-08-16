@@ -16,6 +16,7 @@ public class HealthCanvasControl : SingleTon<HealthCanvasControl>
         {
             snowList.Add(healthControl.transform.GetChild(i).GetComponent<Image>());
         }
+        RefreshHealth();
     }
     private void Update()
     {
@@ -25,7 +26,7 @@ public class HealthCanvasControl : SingleTon<HealthCanvasControl>
 
     public void RefreshHealth()
     {
-        for(int i= (int)PlayerStateManager.Instance.playHealth - 1; i < healthControl.transform.childCount;i++)
+        for(int i= (int)PlayerStateManager.Instance.playHealth; i < healthControl.transform.childCount;i++)
         {
             if (i < 0)
                 break;

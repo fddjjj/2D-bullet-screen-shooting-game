@@ -1660,7 +1660,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ePress: {fileID: 1282413192}
-  isCanTouch: 0
 --- !u!61 &1541951370
 BoxCollider2D:
   m_ObjectHideFlags: 0

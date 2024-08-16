@@ -25,8 +25,15 @@ public class BagCanvasControl :SingleTon<BagCanvasControl>
     }
     private void OnEnable()
     {
+        StartCoroutine(refresh());
+        //RefreshUnequipedLayoutGroup();
         //StartCoroutine(refresh());
-        RefreshUnequipedLayoutGroup();
+        //unequipedLayout.GetComponent<VerticalLayoutGroup>().enabled = false;
+        //unequipedLayout.GetComponent<VerticalLayoutGroup>().enabled = true;
+        //unequipedLayout.gameObject.SetActive(false);
+        //unequipedLayout.gameObject.SetActive(true);
+        //gameObject.SetActive(false);
+        //gameObject.SetActive(true);
     }
     public void RefreshDescribe(string name,string function,string story)
     {
@@ -78,7 +85,7 @@ public class BagCanvasControl :SingleTon<BagCanvasControl>
     }
     IEnumerator refresh()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(0.01f);
         RefreshUnequipedLayoutGroup();
         //Debug.Log("Refresh");
         yield break;
