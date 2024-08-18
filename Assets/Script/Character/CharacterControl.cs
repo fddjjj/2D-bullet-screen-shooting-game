@@ -164,13 +164,20 @@ public class CharacterControl : MonoBehaviour
         { 
             rb.velocity = new Vector2(0,rb.velocity.y);
             return;
-        } 
+        }
+        bool isSameDir = false;
+        if(currentVelocity.x > 0 && moveDirection.x > 0 || currentVelocity.x < 0 && moveDirection.x < 0)
+            isSameDir = true;
 
         //加速部分
-        if(Mathf.Abs(currentVelocity.x)   < moveSpeed)
+        if(Mathf.Abs(currentVelocity.x)   < moveSpeed && isSameDir)
         {
             rb.velocity = new Vector2( currentVelocity.x +  moveDirection.x * moveAcceleration * Time.deltaTime ,rb.velocity.y) ;
-        }else
+        }else if(Mathf.Abs(currentVelocity.x)   < moveSpeed && !isSameDir)
+        {
+            rb.velocity = new Vector2(-currentVelocity.x +  moveDirection.x * moveAcceleration * Time.deltaTime, rb.velocity.y);
+        }
+        else
         {
             rb.velocity = new Vector2(moveSpeed * moveDirection.x, rb.velocity.y);
         }
