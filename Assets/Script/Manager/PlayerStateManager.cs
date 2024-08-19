@@ -30,7 +30,11 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     {
         InvincibleTimer -= Time.deltaTime;
         if (InvincibleTimer < 0f && needRefresh)
+        {
             isInvincible = false;
+            needRefresh = false;
+        }
+            
         if (isRecoverPower)
         {
             if(playerPower < playerMaxPower)

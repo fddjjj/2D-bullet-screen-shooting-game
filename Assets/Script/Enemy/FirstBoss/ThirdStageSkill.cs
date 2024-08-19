@@ -102,6 +102,8 @@ public class ThirdStageSkill : MonoBehaviour
     {
         currentHealth = Maxhealth;
         stageLastTime = 40;
+        selfEnemyStageControl.isInvincible = true;
+        selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());
         
     }
@@ -244,6 +246,7 @@ public class ThirdStageSkill : MonoBehaviour
         isNeedMove = false;
         isEnter = false;
         isStart = false;
+        selfEnemyStageControl.isInvincible = false;
         yield break;
     }
 }

@@ -39,6 +39,8 @@ public class CharacterControl : MonoBehaviour
     public float sliderPowerCost;
     public float flyPowerCost;
     public bool isUpKeyDown = false;
+    Vector2 slideDir;
+    public bool isPressShooting = false;
     [Header("角色状态")]
     public bool isOnGround;//检测角色是否处于地面上
     public bool isSlide;//检测角色是否正在滑行
@@ -236,7 +238,16 @@ public class CharacterControl : MonoBehaviour
             return;
         if (PlayerStateManager.Instance.playerPower < sliderPowerCost)
             return;
-        Vector3 slideDir = transform.localScale;
+        isShooting = false;
+        shotPoint.SetActive(false);     
+        if(rb.velocity.x != 0)
+        {
+            slideDir = rb.velocity.normalized;
+        }else
+        {
+            slideDir = transform.localScale.normalized;
+        }
+        transform.localScale = new Vector3(slideDir.x, 1, 1);
         animator.SetTrigger("Slide");
         boxCollider2D.enabled = false;
         PlayerStateManager.Instance.isInvincible = true;
@@ -250,8 +261,14 @@ public class CharacterControl : MonoBehaviour
     {
         while (isSlide)
         {
-            rb.velocity = new Vector2(slideSpeed * transform.localScale.x, rb.velocity.y);
+            rb.velocity = new Vector2(slideSpeed * slideDir.x, rb.velocity.y);
+            
             yield return null;
+        }
+        if (isPressShooting)
+        {
+            isShooting = true;
+            shotPoint.SetActive(true);
         }
         yield break;
     }
@@ -275,7 +292,10 @@ public class CharacterControl : MonoBehaviour
         if (currentFlyCount > 0)
             currentFlyCount--;
         else
-            return; 
+            return;
+
+        isShooting = false;
+        shotPoint.SetActive(false);
         PlayerStateManager.Instance.isInvincible =true;
         boxCollider2D.enabled =false;
         Debug.Log("Invincible");
@@ -320,12 +340,21 @@ public class CharacterControl : MonoBehaviour
         rb.gravityScale = playerOriginalGravityScale;
         boxCollider2D.enabled=true;
         PlayerStateManager.Instance.isRecoverPower = true;
+        if (isPressShooting)
+        {
+            isShooting = true;
+            shotPoint.SetActive(true);
+        }
+
 
     }
     private void Shoot(InputAction.CallbackContext context)
     {
+        if (isSlide || isFlyying)
+            return;
         isShooting = true;
-        if(!isFlyying)
+        isPressShooting = true;
+        //if(!isFlyying)
             shotPoint.SetActive(true);
         //TODO:调整魔法阵的rotation使其贴合效果
        // Debug.Log("start shoot");
@@ -365,6 +394,7 @@ public class CharacterControl : MonoBehaviour
     {
         isShooting = false;
         shotPoint.SetActive(false);
+        isPressShooting = false;
         //Debug.Log("stop shoot");
         //animator.Update(0);
     }

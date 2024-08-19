@@ -142,6 +142,8 @@ public class FourthStageSkill : MonoBehaviour
     {
         currentHealth = Maxhealth;
         stageLastTime = 40;
+        selfEnemyStageControl.isInvincible = true;
+        selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());
     }
     public void FollowPlayer()
@@ -234,6 +236,7 @@ public class FourthStageSkill : MonoBehaviour
         rb.MovePosition(position1);
         isStart = false;
         isEnter = false;
+        selfEnemyStageControl.isInvincible = false;
         yield break;
     }
 }

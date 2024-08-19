@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using UnityEngine;
 
 public enum Stage { FirstStage, SecondStage, ThirdStage, FourthStage, FifthStage, SixthStage, SeventhStage }
@@ -17,6 +18,8 @@ public class EnemyStageControl : MonoBehaviour
     public bool needRefresh = false;
     public bool isInvincible = false;
     public float InvincibleTime;
+    public float InvincibleTimer = 0f;
+    public bool RefreshInvincible = false;
     private void Awake()
     {
         //currentStage = Stage.FirstStage;
@@ -29,7 +32,14 @@ public class EnemyStageControl : MonoBehaviour
     }
     void Update()
     {
-        if(needRefresh)
+        InvincibleTimer -= Time.deltaTime;
+        if (InvincibleTimer < 0f && RefreshInvincible)
+        {
+            isInvincible = false;
+            RefreshInvincible = false;
+        }
+            
+        if (needRefresh)
         {
             switch (currentStage)
             {
@@ -70,6 +80,7 @@ public class EnemyStageControl : MonoBehaviour
                     break;
                 case Stage.SixthStage:
                     Debug.Log("Win");
+                    gameObject.GetComponent<Animator>().SetTrigger("IsDead");
                     break;
                 case Stage.SeventhStage: 
                     break;
@@ -93,16 +104,18 @@ public class EnemyStageControl : MonoBehaviour
         if (!isInvincible)
         {
             isInvincible = true;
-            StartCoroutine(StopInvincible());
+            //StartCoroutine(StopInvincible());
             EnemyHealth -= damage;
             EnemyHealthCanvasControl.Instance.ChangeHealthSlider(EnemyHealth/currentStageEnemyMaxHealth);
-            Debug.Log("Hurt Enemy");
+            RefreshInvincible = true;
+            InvincibleTimer = InvincibleTime;
+            //Debug.Log("Hurt Enemy");
             //TODO:动画叠加虚化效果
         }
     }
-    IEnumerator StopInvincible()
-    {
-        yield return new WaitForSeconds(InvincibleTime);
-        isInvincible = false;
-    }
+    //IEnumerator StopInvincible()
+    //{
+    //    yield return new WaitForSeconds(InvincibleTime);
+    //    isInvincible = false;
+    //}
 }

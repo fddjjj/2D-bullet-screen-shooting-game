@@ -78,6 +78,8 @@ public class FirstStageSkill : MonoBehaviour
         currentHealth = Maxhealth;
         //selfEnemyStageControl.currentStageEnemyMaxHealth = Maxhealth;
         stageLastTime = 40;
+        selfEnemyStageControl.isInvincible = true;
+        selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());
     }
     IEnumerator SpawnLaserPoints()
@@ -251,6 +253,7 @@ public class FirstStageSkill : MonoBehaviour
         }
         rb.MovePosition(position1);
         isStart = false;
+        selfEnemyStageControl.isInvincible = false;
         yield break;
     }
 }

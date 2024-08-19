@@ -70,6 +70,8 @@ public class SecondStageSkill : MonoBehaviour
     {
         currentHealth = Maxhealth;
         stageLastTime = 40;
+        selfEnemyStageControl.isInvincible = true;
+        selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());
     }
     void InstantiateLaserPoint(Vector3 targetPosition)
@@ -277,6 +279,7 @@ public class SecondStageSkill : MonoBehaviour
         }
         rb.MovePosition(position1);
         isStart = false;
+        selfEnemyStageControl.isInvincible = false;
         yield break;
     }
 

@@ -96,6 +96,8 @@ public class FifthStageSkill : MonoBehaviour
     {
         currentHealth = Maxhealth;
         stageLastTime = 40;
+        selfEnemyStageControl.isInvincible = true;
+        selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());
     }
     private IEnumerator ShootRedBullet()
@@ -255,6 +257,7 @@ public class FifthStageSkill : MonoBehaviour
         rb.velocity = Vector3.zero;
         isStart = false;
         isEnter = false;
+        selfEnemyStageControl.isInvincible = false;
         yield break;
     }
 }
