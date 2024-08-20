@@ -12,6 +12,7 @@ public class StartSceneManager : MonoBehaviour
     private void Awake()
     {
         startButton.onClick.AddListener(GameStart);
+        exitButton.onClick.AddListener(QuitGame);
     }
     public void GameStart()
     {

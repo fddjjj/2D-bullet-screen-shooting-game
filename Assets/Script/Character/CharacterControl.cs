@@ -19,7 +19,8 @@ public class CharacterControl : MonoBehaviour
     public Transform originalPoint;
     public GameObject shotPoint;
     public BoxCollider2D boxCollider2D;
-
+    [Header("音效")]
+    public AudioClip Jump_Clip;
     [Header("基本参数")]
     public Vector2 moveDirection;//移动方向
     public float moveSpeed;//速度上限
@@ -199,6 +200,8 @@ public class CharacterControl : MonoBehaviour
             return;
         rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
+        AudioManager.Instance.Player_Source.clip = Jump_Clip;
+        AudioManager.Instance.Player_Source.Play();
 
     }
     private void SlowDown(InputAction.CallbackContext context)
@@ -433,4 +436,12 @@ public class CharacterControl : MonoBehaviour
 
     #endregion
 
+    public void StopPlayer()
+    {
+        inputControl.Player.Disable();
+    }
+    public void StartPlayer()
+    {
+        inputControl.Player.Enable();
+    }
 }

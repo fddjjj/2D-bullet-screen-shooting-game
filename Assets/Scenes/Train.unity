@@ -1443,10 +1443,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7f36ee4c21cea439bdea2a44181113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneLoaded: {fileID: 11400000, guid: b976d9ff67de450418884bc76714d832, type: 2}
+  SceneHadLoad: {fileID: 11400000, guid: b976d9ff67de450418884bc76714d832, type: 2}
   bound1: {fileID: 616538212}
   bound2: {fileID: 0}
   CameraDistance: 6
+  BGM_Clip: {fileID: 0}
 --- !u!4 &543617976
 Transform:
   m_ObjectHideFlags: 0

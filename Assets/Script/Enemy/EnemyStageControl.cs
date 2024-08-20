@@ -81,6 +81,7 @@ public class EnemyStageControl : MonoBehaviour
                 case Stage.SixthStage:
                     Debug.Log("Win");
                     gameObject.GetComponent<Animator>().SetTrigger("IsDead");
+
                     break;
                 case Stage.SeventhStage: 
                     break;
