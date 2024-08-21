@@ -256,4 +256,12 @@ public class FirstStageSkill : MonoBehaviour
         selfEnemyStageControl.isInvincible = false;
         yield break;
     }
+
+    public void Stop()
+    {
+        StopAllCoroutines();
+        ObjectPool.Instance.SetFalse("BlueLaserPointPrefab");
+        ObjectPool.Instance.SetFalse("RedLaserWarningPrefab");
+        ObjectPool.Instance.SetFalse("BossStar");
+    }
 }

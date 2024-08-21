@@ -239,4 +239,11 @@ public class FourthStageSkill : MonoBehaviour
         selfEnemyStageControl.isInvincible = false;
         yield break;
     }
+    public void Stop()
+    {
+        StopAllCoroutines();
+        ObjectPool.Instance.SetFalse("BossStar");
+        MoonTransform.gameObject.SetActive(false);
+        ShootTransform.gameObject.SetActive(false);
+    }
 }

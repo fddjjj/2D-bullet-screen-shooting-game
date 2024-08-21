@@ -10,6 +10,7 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     public float playHealth;
     public float playerMaxHealth;
     public GameObject player;
+    public CharacterControl playerControl;
     [Header("²ÎÊý")]
     public float playerPower;
     public float playerMaxPower;

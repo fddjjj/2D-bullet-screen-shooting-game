@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class EnemyManager : SingleTon<EnemyManager>
 {
-    [SerializeField]
+    //[SerializeField]
     public List<EnemyState> enemyStates = new List<EnemyState>();
 
-
+    public Transform BossTransform;
+    public Vector3 BossStartPosition;
+    public EnemyStageControl BossStageControl;
+    public bool HasBoss = false;
     public void AddEnemyState(EnemyState enemyState)
     {
         enemyStates.Add(enemyState);

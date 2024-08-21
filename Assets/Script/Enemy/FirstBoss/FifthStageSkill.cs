@@ -260,4 +260,12 @@ public class FifthStageSkill : MonoBehaviour
         selfEnemyStageControl.isInvincible = false;
         yield break;
     }
+    public void Stop()
+    {
+        StopAllCoroutines();
+        ObjectPool.Instance.SetFalse("BossStar");
+        ObjectPool.Instance.SetFalse("RedCircle");
+        ObjectPool.Instance.SetFalse("Moon");
+        ObjectPool.Instance.SetFalse("BlueCircle");
+    }
 }

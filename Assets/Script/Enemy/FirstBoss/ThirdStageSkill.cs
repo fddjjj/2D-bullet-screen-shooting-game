@@ -249,4 +249,10 @@ public class ThirdStageSkill : MonoBehaviour
         selfEnemyStageControl.isInvincible = false;
         yield break;
     }
+    public void Stop()
+    {
+        StopAllCoroutines();
+        ObjectPool.Instance.SetFalse("RedLaserPointPrefab");
+        ObjectPool.Instance.SetFalse("BossStar");
+    }
 }

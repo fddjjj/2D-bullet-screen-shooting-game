@@ -20,6 +20,8 @@ public class EnemyStageControl : MonoBehaviour
     public float InvincibleTime;
     public float InvincibleTimer = 0f;
     public bool RefreshInvincible = false;
+    public Vector3 startPosition;
+
     private void Awake()
     {
         //currentStage = Stage.FirstStage;
@@ -29,6 +31,10 @@ public class EnemyStageControl : MonoBehaviour
         fourthStageSkill = GetComponent<FourthStageSkill>();
         fifthStageSkill = GetComponent<FifthStageSkill>();
         needRefresh = true;
+        EnemyManager.Instance.BossTransform = transform;
+        EnemyManager.Instance.BossStartPosition = startPosition;
+        EnemyManager.Instance.BossStageControl = this;
+        EnemyManager.Instance.HasBoss = true;
     }
     void Update()
     {
@@ -112,6 +118,31 @@ public class EnemyStageControl : MonoBehaviour
             InvincibleTimer = InvincibleTime;
             //Debug.Log("Hurt Enemy");
             //TODO:动画叠加虚化效果
+        }
+    }
+
+    public void StopStage(Stage stage)
+    {
+        //TODO:停止当前阶段
+        switch (stage)
+        {
+            case Stage.FirstStage: 
+                firstStageSkill.Stop();
+                break;
+            case Stage.SecondStage:
+                secondStageSkill.Stop();
+                break;
+            case Stage.ThirdStage:
+                thirdStageSkill.Stop();
+                break;
+            case Stage.FourthStage: 
+                fourthStageSkill.Stop();
+                break;
+            case Stage.FifthStage: 
+                fifthStageSkill.Stop();
+                break;
+            case Stage.SixthStage: break;
+            default : break;
         }
     }
     //IEnumerator StopInvincible()

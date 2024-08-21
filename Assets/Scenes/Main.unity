@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Follow: {fileID: 7984809188421022390}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 14
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1620,7 +1620,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 14
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2239,6 +2239,7 @@ MonoBehaviour:
   playHealth: 100
   playerMaxHealth: 9
   player: {fileID: 1864893539}
+  playerControl: {fileID: 905486491636106273}
   playerPower: 0
   playerMaxPower: 100
   isInvincible: 0
@@ -2292,7 +2293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 474.83, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &674133287
@@ -5494,7 +5495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 474.83, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1228122870
@@ -7395,6 +7396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dc303007c561a4fb4116477b0b40b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BossTransform: {fileID: 0}
+  BossStartPosition: {x: 0, y: 0, z: 0}
+  BossStageControl: {fileID: 0}
+  HasBoss: 0
 --- !u!1 &1501525744
 GameObject:
   m_ObjectHideFlags: 0
@@ -8753,6 +8758,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf9d8cf249d7904a9bd2eb00969faa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transData: {fileID: 11400000, guid: 70f83479d64b4de408e3e344f789f177, type: 2}
+  TransButton: {fileID: 1837351366260734419}
+  RefightButton: {fileID: 1837351365734294303}
+  SettingButton: {fileID: 1363184176}
+  QuitButton: {fileID: 23824983}
 --- !u!1 &1821433981
 GameObject:
   m_ObjectHideFlags: 0
@@ -11032,7 +11042,6 @@ GameObject:
   - component: {fileID: 2391567394266122811}
   - component: {fileID: 7635236597103116696}
   - component: {fileID: 1837351366260734419}
-  - component: {fileID: 7635236597103116697}
   m_Layer: 0
   m_Name: TransButton
   m_TagString: Untagged
@@ -11229,19 +11238,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7635236597103116697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5866303427699384370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 038aaacab013ef748b66d901328bc450, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transData: {fileID: 11400000, guid: 70f83479d64b4de408e3e344f789f177, type: 2}
 --- !u!114 &7635236597629426516
 MonoBehaviour:
   m_ObjectHideFlags: 0
