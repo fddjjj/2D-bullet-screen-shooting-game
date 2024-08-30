@@ -32,6 +32,10 @@ public class HealthCanvasControl : SingleTon<HealthCanvasControl>
                 break;
             snowList[i].gameObject.SetActive(false);
         }
+        for(int i=0;i<(int)PlayerStateManager.Instance.playHealth;i++)
+        {
+            snowList[i].gameObject.SetActive(true);
+        }
     }
 
 

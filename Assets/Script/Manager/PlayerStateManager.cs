@@ -54,9 +54,13 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
             HealthCanvasControl.Instance.RefreshHealth();
             //TODO:动画叠加虚化效果
             Debug.Log("PlayerHurt");
-            if(playHealth < 0 )
+            if(playHealth <= 0 )
             {
                 //TODO:结束
+                playerControl.inputControl.Player.Disable();
+                Time.timeScale = 0f;
+                isstop = true;
+                DeadCanvasControl.Instance.gameObject.SetActive(true);
             }
         }
     }

@@ -18,6 +18,7 @@ public class StopCanvasControl : SingleTon<StopCanvasControl>
         gameObject.SetActive(false);
         RefightButton.onClick.AddListener(RefightClick);
         TransButton.onClick.AddListener(TransStopBoss);
+        SettingButton.onClick.AddListener(OpenSettingCanvas);
     }
     private void OnEnable()
     {
@@ -32,12 +33,12 @@ public class StopCanvasControl : SingleTon<StopCanvasControl>
         PlayerStateManager.Instance.player.GetComponent<Rigidbody2D>().position = MainSceneManager.Instance.playerStayPosition;
         PlayerStateManager.Instance.playHealth = PlayerStateManager.Instance.playerMaxHealth;
         PlayerStateManager.Instance.playerPower = PlayerStateManager.Instance.playerMaxPower;
+        HealthCanvasControl.Instance.RefreshHealth();
+
 
         EnemyManager.Instance.BossTransform.gameObject.GetComponent<Rigidbody2D>().position = EnemyManager.Instance.BossStartPosition;
 
         EnemyManager.Instance.BossStageControl.StopStage(EnemyManager.Instance.BossStageControl.currentStage);
-        //EnemyManager.Instance.BossStageControl.currentStage = Stage.FirstStage;
-        //EnemyManager.Instance.BossStageControl.needRefresh = true;
         EnemyManager.Instance.BossStageControl.ChangeStage(Stage.FirstStage);
         PlayerStateManager.Instance.playerControl.inputControl.Player.Enable();
         //BagCanvasControl.Instance.gameObject.SetActive(false);
@@ -57,5 +58,9 @@ public class StopCanvasControl : SingleTon<StopCanvasControl>
         Time.timeScale = 1f;
         PlayerStateManager.Instance.isstop = false;
         MainSceneManager.Instance.NeedLoadScene.RaiseAction(transData.TargetLocation, transData.TargetPosition);
+    }
+    public void OpenSettingCanvas()
+    {
+        SettingCanvasControl.Instance.gameObject.SetActive(true);
     }
 }

@@ -103,7 +103,6 @@ public class EnemyStageControl : MonoBehaviour
     {
         currentStage = stage;
         needRefresh = true;
-
     }
 
     public void GetHurt(float damage)
