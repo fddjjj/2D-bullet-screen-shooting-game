@@ -12,4 +12,7 @@ public class TransData : ScriptableObject
     public int passTime_min;
     public int passTime_s;
     public int passTime_ms;
+
+    public bool hasBoss;
+    public bool needPlayerHealth;
 }

@@ -19,6 +19,7 @@ public class CharacterControl : MonoBehaviour
     public Transform originalPoint;
     public GameObject shotPoint;
     public BoxCollider2D boxCollider2D;
+    public SpriteRenderer[] spriteRenderer;
     [Header("音效")]
     public AudioClip Jump_Clip;
     [Header("基本参数")]

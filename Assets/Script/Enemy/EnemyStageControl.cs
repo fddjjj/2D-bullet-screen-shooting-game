@@ -21,7 +21,8 @@ public class EnemyStageControl : MonoBehaviour
     public float InvincibleTimer = 0f;
     public bool RefreshInvincible = false;
     public Vector3 startPosition;
-
+    public string BossName;
+    public Sprite bossSprite;
     private void Awake()
     {
         //currentStage = Stage.FirstStage;
@@ -35,6 +36,9 @@ public class EnemyStageControl : MonoBehaviour
         EnemyManager.Instance.BossStartPosition = startPosition;
         EnemyManager.Instance.BossStageControl = this;
         EnemyManager.Instance.HasBoss = true;
+
+        EnemyHealthCanvasControl.Instance.enemyName.text = BossName;
+        EnemyHealthCanvasControl.Instance.ChangeEnemyHead(bossSprite);
     }
     void Update()
     {

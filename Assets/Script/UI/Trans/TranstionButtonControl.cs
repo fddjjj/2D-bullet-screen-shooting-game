@@ -18,6 +18,6 @@ public class TranstionButtonControl : MonoBehaviour
         TransCanvasControl.Instance.gameObject.SetActive(false);
         Time.timeScale = 1f;
         PlayerStateManager.Instance.isstop = false;
-        MainSceneManager.Instance.NeedLoadScene.RaiseAction(TransCanvasControl.Instance.currentTransData.TargetLocation, TransCanvasControl.Instance.currentTransData.TargetPosition);
+        MainSceneManager.Instance.NeedLoadScene.RaiseAction(TransCanvasControl.Instance.currentTransData.TargetLocation, TransCanvasControl.Instance.currentTransData.TargetPosition,TransCanvasControl.Instance.currentTransData);
     }
 }

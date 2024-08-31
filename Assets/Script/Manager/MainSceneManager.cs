@@ -14,11 +14,13 @@ public class MainSceneManager : SingleTon<MainSceneManager>
 
     public string currentSceneName;
     public Vector3 playerStayPosition;
+    public TransData currentTransData;
+    public TransData Trans;
     protected override void Awake()
     {
         base.Awake();
         currentSceneName = null;
-        OwnLoadNewScene("Train", playerStayPosition);
+        OwnLoadNewScene("Train", playerStayPosition,Trans);
         //NeedLoadScene.RaiseAction("Train", playerStayPosition);
     }
 
@@ -32,11 +34,11 @@ public class MainSceneManager : SingleTon<MainSceneManager>
         NeedLoadScene.Action -= LoadNewScene;
     }
 
-    private void LoadNewScene(string sceneName, Vector3 playerPosition)
+    private void LoadNewScene(string sceneName, Vector3 playerPosition,TransData transData)
     {
-        OwnLoadNewScene(sceneName, playerPosition);
+        OwnLoadNewScene(sceneName, playerPosition,transData);
     }
-    public void OwnLoadNewScene(string SceneName,Vector3 position)
+    public void OwnLoadNewScene(string SceneName,Vector3 position,TransData transData)
     {
         //AsyncOperation isEndUnload;
         //SceneManager.LoadSceneAsync(SceneName);
@@ -45,6 +47,7 @@ public class MainSceneManager : SingleTon<MainSceneManager>
         //{
 
         //}
+        currentTransData = transData;
         playerStayPosition = position;
         if(currentSceneName != null)
         {
@@ -68,9 +71,67 @@ public class MainSceneManager : SingleTon<MainSceneManager>
     }
     IEnumerator OwnLoadNewScene(string SceneName)
     {
+        yield return FadeStart(0.5f);
         yield return SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
         currentSceneName = SceneName;
         PlayerStateManager.Instance.player.GetComponent<Rigidbody2D>().position = playerStayPosition;
+        if (currentTransData.hasBoss)
+        {
+            EnemyHealthCanvasControl.Instance.gameObject.SetActive(true);
+            StopCanvasControl.Instance.RefightButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            EnemyHealthCanvasControl.Instance.gameObject.SetActive(false);
+            StopCanvasControl.Instance.RefightButton.gameObject.SetActive(false);
+        }
+        if (currentTransData.needPlayerHealth)
+        {
+            HealthCanvasControl.Instance.gameObject.SetActive(true);
+            PlayerStateManager.Instance.playHealth = PlayerStateManager.Instance.playerMaxHealth;
+            HealthCanvasControl.Instance.RefreshHealth();
+
+        }else
+        {
+            HealthCanvasControl.Instance.gameObject.SetActive(false);
+        }
         SceneHadLoad.RaiseAction();
+        yield return FadeEnd(0.5f);
+        yield break;
+    }
+
+    public IEnumerator FadeStart(float time)
+    {
+        FadeCanvasControl.Instance.gameObject.SetActive(true);
+        Color tmpColor = FadeCanvasControl.Instance.background.color;
+        float elapsedTime = 0f;
+        //while (elapsedTime < time)
+        //{
+        //    elapsedTime += Time.deltaTime;
+        //    tmpColor.a = Mathf.Clamp01(elapsedTime / time);
+        //    FadeCanvasControl.Instance.background.color = tmpColor;
+        //    yield return null;
+        //}
+        tmpColor.a = 1f;
+        FadeCanvasControl.Instance.background.color = tmpColor;
+        yield return new WaitForSeconds(time/2);
+        Debug.Log("½¥Èë");
+        yield break;
+
+    }
+    public IEnumerator FadeEnd(float time)
+    {
+        //FadeCanvasControl.Instance.gameObject.SetActive (true);
+        Color tmpColor = FadeCanvasControl.Instance.background.color;
+        float elapsedTime = 0f;
+        while (elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            tmpColor.a = Mathf.Clamp01(1.0f - (elapsedTime / time));
+            FadeCanvasControl.Instance.background.color = tmpColor;
+            yield return null;
+        }
+        Debug.Log("½¥³ö");
+        FadeCanvasControl.Instance.gameObject.SetActive(false);
     }
 }

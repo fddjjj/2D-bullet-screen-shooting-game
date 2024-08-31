@@ -19,3 +19,5 @@ MonoBehaviour:
   passTime_min: 1
   passTime_s: 33
   passTime_ms: 66
+  hasBoss: 1
+  needPlayerHealth: 1

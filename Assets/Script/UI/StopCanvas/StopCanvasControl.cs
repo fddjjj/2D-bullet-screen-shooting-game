@@ -57,7 +57,7 @@ public class StopCanvasControl : SingleTon<StopCanvasControl>
         gameObject.SetActive(false);
         Time.timeScale = 1f;
         PlayerStateManager.Instance.isstop = false;
-        MainSceneManager.Instance.NeedLoadScene.RaiseAction(transData.TargetLocation, transData.TargetPosition);
+        MainSceneManager.Instance.NeedLoadScene.RaiseAction(transData.TargetLocation, transData.TargetPosition,transData);
     }
     public void OpenSettingCanvas()
     {

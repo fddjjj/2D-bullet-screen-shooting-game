@@ -11,6 +11,8 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     public float playerMaxHealth;
     public GameObject player;
     public CharacterControl playerControl;
+    public Material originalMaterial;
+    public Material hitMaterial;
     [Header("参数")]
     public float playerPower;
     public float playerMaxPower;
@@ -22,6 +24,7 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     public bool needRefresh = false;
     public bool isstop = false;
     public bool isCanTouch = false;
+    public float hitDurition = 1.0f;
     private void OnEnable()
     {
         playHealth = playerMaxHealth;
@@ -53,6 +56,7 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
             playHealth --;
             HealthCanvasControl.Instance.RefreshHealth();
             //TODO:动画叠加虚化效果
+            StartCoroutine(HitFlash());
             Debug.Log("PlayerHurt");
             if(playHealth <= 0 )
             {
@@ -68,6 +72,19 @@ public class PlayerStateManager : SingleTon<PlayerStateManager>
     {
         needRefresh = true;
         InvincibleTimer = t;
+    }
+    private IEnumerator HitFlash()
+    {
+        for(int i= 0;i<playerControl.spriteRenderer.Length;i++)
+        {
+            playerControl.spriteRenderer[i].material = hitMaterial;
+        }
+        yield return new WaitForSeconds(hitDurition);
+        for (int i = 0; i<playerControl.spriteRenderer.Length; i++)
+        {
+            playerControl.spriteRenderer[i].material = originalMaterial;
+        }
+        yield break;
     }
 }
 
