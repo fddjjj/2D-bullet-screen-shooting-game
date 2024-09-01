@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe4d6fbb53c2e1458878471c8aad363, type: 3}
   m_Name: Tracezse
   m_EditorClassIdentifier: 
-  attackCooldown: 0.2
+  attackCooldown: 0.4
   attackDamage: 5
   attackMultiply: 1.1
   attackAddDamage: 2
-  bullerSpeed: 5
+  bullerSpeed: 20
   attackTypes: 3

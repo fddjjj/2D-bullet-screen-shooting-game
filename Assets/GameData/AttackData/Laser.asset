@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Laser
   m_EditorClassIdentifier: 
   attackCooldown: 0
-  attackDamage: 1
+  attackDamage: 2.5
   attackMultiply: 1.1
   attackAddDamage: 0.5
   bullerSpeed: 0

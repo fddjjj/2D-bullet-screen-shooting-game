@@ -19,6 +19,7 @@ public class SecondStageSkill : MonoBehaviour
     [Header("ÊôÐÔ")]
     public float Maxhealth;
     public float currentHealth;
+    public float stageResetLastTime;
     public float stageLastTime;
     public float sideOffsetAngle; // Ô¤¾¯¼¤¹â×óÓÒÆ«ÒÆ½Ç¶È
     public float redLaserLength;
@@ -36,7 +37,7 @@ public class SecondStageSkill : MonoBehaviour
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        stageLastTime = 40;
+        stageLastTime = stageResetLastTime;
         isStart = true;
     }
     private void Update()
@@ -69,7 +70,7 @@ public class SecondStageSkill : MonoBehaviour
     public void OnEnter()
     {
         currentHealth = Maxhealth;
-        stageLastTime = 40;
+        stageLastTime = stageResetLastTime;
         selfEnemyStageControl.isInvincible = true;
         selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());

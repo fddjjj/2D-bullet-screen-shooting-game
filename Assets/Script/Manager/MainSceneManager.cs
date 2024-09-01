@@ -104,7 +104,6 @@ public class MainSceneManager : SingleTon<MainSceneManager>
     {
         FadeCanvasControl.Instance.gameObject.SetActive(true);
         Color tmpColor = FadeCanvasControl.Instance.background.color;
-        float elapsedTime = 0f;
         //while (elapsedTime < time)
         //{
         //    elapsedTime += Time.deltaTime;

@@ -4928,7 +4928,7 @@ MonoBehaviour:
   bound1: {fileID: 920074908}
   bound2: {fileID: 0}
   CameraDistance: 6
-  BGM_Clip: {fileID: 0}
+  BGM_Clip: {fileID: 8300000, guid: 37c4c7a6e2da8aa4fb5511ac569db9c0, type: 3}
 --- !u!4 &1060602522
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Scattering
   m_EditorClassIdentifier: 
   attackCooldown: 0.2
-  attackDamage: 10
+  attackDamage: 7
   attackMultiply: 1.1
   attackAddDamage: 2
   bullerSpeed: 30
+  attackTypes: 0

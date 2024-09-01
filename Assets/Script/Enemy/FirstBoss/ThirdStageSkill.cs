@@ -28,6 +28,7 @@ public class ThirdStageSkill : MonoBehaviour
     [Header("属性")]
     public float Maxhealth;
     public float currentHealth;
+    public float stageResetLastTime;
     public float stageLastTime;
     public float redLaserLength;
     public float fireInterval;// 每个子弹之间的延迟
@@ -46,7 +47,7 @@ public class ThirdStageSkill : MonoBehaviour
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        stageLastTime = 40;
+        stageLastTime = stageResetLastTime;
         isFollow = true;
     }
     private void Update()
@@ -101,7 +102,7 @@ public class ThirdStageSkill : MonoBehaviour
     public void OnEnter()
     {
         currentHealth = Maxhealth;
-        stageLastTime = 40;
+        stageLastTime = stageResetLastTime;
         selfEnemyStageControl.isInvincible = true;
         selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());

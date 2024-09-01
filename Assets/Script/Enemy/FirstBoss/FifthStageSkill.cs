@@ -16,6 +16,7 @@ public class FifthStageSkill : MonoBehaviour
     [Header("属性")]
     public float Maxhealth;
     public float currentHealth;
+    public float stageResetLastTime;
     public float stageLastTime;
     public float shootCooldown;// 每个子弹之间的延迟
     public float moonShootCooldown;
@@ -42,7 +43,7 @@ public class FifthStageSkill : MonoBehaviour
         selfEnemyControl = GetComponent<EnemyControl>();
         selfEnemyStageControl = GetComponent<EnemyStageControl>();
         rb = GetComponent<Rigidbody2D>();
-        stageLastTime = 40;
+        stageLastTime = stageResetLastTime;
         isEnter = true;
         isFollow = false;
 
@@ -95,7 +96,7 @@ public class FifthStageSkill : MonoBehaviour
     public void OnEnter()
     {
         currentHealth = Maxhealth;
-        stageLastTime = 40;
+        stageLastTime = stageResetLastTime;
         selfEnemyStageControl.isInvincible = true;
         selfEnemyStageControl.RefreshInvincible = false;
         StartCoroutine(Move());
